@@ -1,5 +1,3 @@
-import React from "react";
-
 import Home from "../routes/Hone/home";
 import ReadScanner from "./../componets/QR/ReadScanner";
 import Contact from "./Contacts/ListContacts";
@@ -8,6 +6,7 @@ import Academys from "./Academy/ListAcademys";
 import Entradas from "./Entradas/ListEntradas";
 import Events from "./Eventos/ListEventos";
 import VentaEntrada from "./Entradas/VentaEntrada";
+import Exit from "../componets/exit/Exit";
 
 // import Exit from "./components/Exit";
 
@@ -42,7 +41,7 @@ const routes = [
     path: "/contact",
     element: <Contact title={"Contactos"} />,
   },
-  // { path: "/exit", element: <Exit /> },
+  { path: "/exit", element: <Exit  /> },
 ];
 
 export default routes;

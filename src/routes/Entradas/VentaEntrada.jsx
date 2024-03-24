@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import ValidateErrors from "../../componets/services/ValidateErrors";
-import validationSchema from "../../componets/services/validationSchema";
-import Footer from "../footer/Footer";
+import validationSchema from "../../componets/services/validationVentaSchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import Swal from "sweetalert2";
@@ -10,6 +9,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
   const [error, setError] = useState(false);
   const [eventos, setEventos] = useState([]);
   const api = "http://localhost:5000/api/ticket";
+  const inputRef = useRef(null);
 
   const formaPagos = [
     { id: 1, descrip: "Total" },
@@ -32,10 +32,10 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     emailComprador: entrada ? entrada.emailComprador : "",
     nombreComprador: entrada ? entrada.nombreComprador : "",
     costo: entrada ? entrada.costo : 0,
-    nomtoPago: entrada ? entrada.nomtoPago : 0,
+    formaPago: entrada ? entrada.formaPago : "",
+    nomtoPago: entrada ? entrada.nomtoPago : "",
     metodoPago: entrada ? entrada.metodoPago : "",
     responsable: entrada ? entrada.responsable : "",
-    // urlAcademia : entrada ? entrada.urlAcademia = ""
   };
 
   const { formData, onInputChange, validateForm, errorsInput, clearForm } =
@@ -53,7 +53,6 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     formaPago,
     nomtoPago,
     responsable,
-    urlAcademy,
   } = formData;
 
   let {
@@ -106,17 +105,32 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     let url = `${api}/${codigoEntrada}`;
     let result = await getData(url);
     if (result?.status === 200) {
-      const { evento, costo, responsable, urlAcademia } = result.data.data;
-      // Actualizar el estado del formulario con los datos obtenidos del servidor
-      formData.evento = evento;
-      formData.costo = costo;
-      formData.responsable = responsable;
-      formData.urlAcademy = urlAcademia;
-      const simulatedEvent = {
-        target: { name: "evento", value: evento },
-      };
-      /* se simula en input por panntala para llamar hook */
-      onInputChange(simulatedEvent);
+      const { evento, costo, responsable, estatus } = result.data.data;
+      let simulatedEvent = {};
+
+      if (estatus != "Asignada") {
+        {
+          Swal.fire({
+            position: "top",
+            icon: "info",
+            title: "La Entrada no a sído asignada, venta no autoriáda.",
+            showConfirmButton: false,
+            timer: 4000,
+          });
+        }
+        clearForm();
+        inputRef.current.focus();
+      } else {
+        // Actualizar el estado del formulario con los datos obtenidos del servidor
+        formData.evento = evento;
+        formData.costo = costo;
+        formData.responsable = responsable;
+        simulatedEvent = {
+          target: { name: "evento", value: evento },
+        };
+        /* se simúla en input por panntala para llamar hook */
+        onInputChange(simulatedEvent);
+      }
     } else {
       result?.data.message &&
         Swal.fire({
@@ -182,7 +196,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
           errorMessage()
         ) : (
           <>
-            <div className="container my-5 py-5 px-5">
+            <div className="container my-5 px-5">
               <h1 className="my-3">Venta de Entradas</h1>
               <form onSubmit={handleSubmit}>
                 <div className="row">
@@ -190,14 +204,15 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                     <label htmlFor="text">Número de Entrada</label>
                     <input
                       type="text"
+                      ref={inputRef}
                       className="form-control"
                       name="codigoEntrada"
                       value={codigoEntrada}
                       onChange={onInputChange}
                       onBlur={handleBlur}
                     />
-                    {errorsInput.responsable && (
-                      <ValidateErrors errors={errorsInput.responsable} />
+                    {errorsInput.codigoEntrada && (
+                      <ValidateErrors errors={errorsInput.codigoEntrada} />
                     )}
                   </div>
                   <div className="form-group col-md-6">
@@ -296,6 +311,9 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                         );
                       })}
                     </select>{" "}
+                    {errorsInput.metodoPago && (
+                      <ValidateErrors errors={errorsInput.metodoPago} />
+                    )}
                   </div>
 
                   <div className="form-group col-md-4">
@@ -308,6 +326,9 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                       value={nomtoPago}
                       onChange={onInputChange}
                     />
+                    {errorsInput.nomtoPago && (
+                      <ValidateErrors errors={errorsInput.nomtoPago} />
+                    )}
                   </div>
 
                   <div className="form-group col-md-4">
@@ -327,6 +348,9 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                         );
                       })}
                     </select>
+                    {errorsInput.formaPago && (
+                      <ValidateErrors errors={errorsInput.formaPago} />
+                    )}
                   </div>
                 </div>
                 <div className="btn-submit mt-5">
@@ -342,7 +366,6 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                 </div>
               </form>
             </div>
-            <Footer />
           </>
         )
       }

@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import ValidateErrors from "../../componets/services/ValidateErrors";
-import validationSchema from "../../componets/services/validationSchema";
+import validationSchema from "../../componets/services/validationAcademySchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
 
 import Swal from "sweetalert2";
-// import "./academia.css";
 
 export default function Academia({ academia, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();
@@ -180,7 +179,10 @@ export default function Academia({ academia, edit, riviewList }) {
                     placeholder="Ingrese URL Web..."
                     value={url}
                     onChange={onInputChange}
-                  />
+                  />{" "}
+                  {errorsInput.url && (
+                    <ValidateErrors errors={errorsInput.url} />
+                  )}
                 </div>
               </div>
               <div className="row mt-3">
@@ -193,7 +195,10 @@ export default function Academia({ academia, edit, riviewList }) {
                     placeholder="Indique Dirección..."
                     value={adress}
                     onChange={onInputChange}
-                  />
+                  />{" "}
+                  {errorsInput.adress && (
+                    <ValidateErrors errors={errorsInput.adress} />
+                  )}
                 </div>
               </div>
               <div className="btn-submit mt-4">

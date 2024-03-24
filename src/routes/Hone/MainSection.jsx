@@ -11,11 +11,11 @@ function MainSection() {
           <aside>
             <p>
               Nos complace ofrecer una amplia gama de{" "}
-              <b>cursos de informática</b>
-              diseñados para satisfacer sus necesidades de aprendizaje, sin
-              importar su nivel de experiencia. En nuestro instituto, encontrará
-              un equipo dedicado de instructores expertos apasionados por la
-              enseñanza y listos para ayudarlo a tener éxito.
+              <b>servicios de informática</b>
+              diseñados para satisfacer sus necesidades profesionales, sin
+              importar su nivel de experiencia. En nuestra institución,
+              encontrará un equipo dedicado de profesionales expertos
+              apasionados por la servirle y listos para ayudarlo a tener éxito.
             </p>
             <p>
               Nuestra misión es brindarle las habilidades y conocimientos que
@@ -27,8 +27,8 @@ function MainSection() {
               entornos del mundo real.
             </p>
             <p>
-              <b>Únase al mejor instituto de IT</b> y emprenda un viaje de
-              crecimiento y éxito con nosotros.
+              <b>Únase a nosotros </b> y emprenda un viaje de crecimiento y
+              éxito con nosotros.
             </p>
             <h1>Formando Grandes Profesionales</h1>
           </aside>

@@ -4,7 +4,6 @@ import Pagination from "../../componets/services/Pagination";
 import Buscador from "../../componets/Buscador";
 import { useFetch } from "../../hooks/useFetch";
 import Student from "./Student";
-import Footer from "../footer/Footer";
 
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -189,7 +188,6 @@ export default function ListStudent({ title }) {
                 />
               )}
             </div>
-            <Footer />
           </>
         )
       )}

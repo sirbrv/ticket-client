@@ -4,16 +4,13 @@ import Pagination from "../../componets/services/Pagination";
 import Buscador from "../../componets/Buscador";
 import { useFetch } from "../../hooks/useFetch";
 import GeneraEntradas from "./GeneraEntrada";
-import GestionEntradas from "./GestionEntrada"
-
-import Footer from "../footer/Footer";
+import GestionEntradas from "./GestionEntrada";
 
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
-// import "./Entrada.css";
 
 export default function ListEntrada({ title }) {
   const ref = useRef(null);
@@ -192,7 +189,6 @@ export default function ListEntrada({ title }) {
                 />
               )}
             </div>
-            <Footer />
           </>
         )
       )}

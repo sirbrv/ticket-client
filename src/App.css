@@ -11,35 +11,91 @@ body {
 }
 
 header {
-  width: 100vw;
-  background-image: url(../assets/title2.jpg);
+  background-image: url(./assets/1000_F_646996844_gouH7.jpg);
   color: white;
   font-size: 1.1em;
-  height: 180px;
+  width: 100vw;
+  height: 200px;
   font-weight: bold;
+  background-size: cover;
+}
+main {
+  display: flex;
+  /* height: 100vh; */
 }
 /* 
-footer {
-  width: 100vw;
+.main {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
 } */
 
-.aside {
+.asideLeft {
+  width: 0%;
+  background-color: rgb(69, 73, 76);
+  height: 100vh;
+  margin-left: 0;
+  transition: width 0.3s ease, margin-left 0.3s ease; /* Agrega transiciones suaves */
+}
+
+.asideRigth {
   width: 20%;
   background-color: rgb(69, 73, 76);
-  height: 100wh;
+  height: 100vh;
+  transition: width 0.3s ease, margin-rigth 0.3s ease; /* Agrega transiciones suaves */
+}
+
+.sectionContentLeft {
+  width: 96%; /* Inicialmente ocupa el 80% del ancho */
+  margin-left: 03%; /* Deja espacio para el menú cuando está visible */
+  transition: width 0.3s ease, margin-left 0.3s ease; /* Agrega transiciones suaves */
+  margin-bottom: 100px;
+}
+
+.sectionContentRigth {
+  width: 80%; /* Inicialmente ocupa el 80% del ancho */
+  /* margin-left: 20%; Deja espacio para el menú cuando está visible */
+  transition: width 0.3s ease, margin-rigth 0.3s ease; /* Agrega transiciones suaves */
+  margin-bottom: 100px;
+}
+
+.toggleButton {
+  position: absolute;
+  top: 10px;
+  left: 90%; /* Posición del botón de alternancia */
+  background-color: #333; /* Color del botón de alternancia */
+  color: #fff; /* Color del icono o texto del botón de alternancia */
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.toggleButton:hover {
+  background-color: #555; /* Color de fondo del botón de alternancia al pasar el ratón */
 }
 
 .marco {
-  padding: 10px;
+  padding: 20px;
   font-size: 1em;
-}
-
-.section {
-  width: 85%;
 }
 
 .courseSection {
   display: flex;
+  .toggleButton {
+    position: absolute;
+    top: 10px;
+    left: 90%; /* Posición del botón de alternancia */
+    background-color: #333; /* Color del botón de alternancia */
+    color: #fff; /* Color del icono o texto del botón de alternancia */
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  .toggleButton:hover {
+    background-color: #555; /* Color de fondo del botón de alternancia al pasar el ratón */
+  }
+
   justify-content: center;
   align-items: start;
 }
@@ -177,7 +233,7 @@ footer {
 }
 
 .btn-segundary,
-.btn-primary {
+.btn-segundary {
   background-color: rgb(38, 38, 196);
   outline: none;
   border: 0;

@@ -5,9 +5,6 @@ import { Link } from "react-router-dom";
 // import CardCourse from "./CardCourse";
 import Contact from "../Contacts/Contact";
 
-import "./home.css";
-import Footer from "../footer/Footer";
-
 const Home = () => {
   return (
     <>
@@ -24,7 +21,6 @@ const Home = () => {
         </p>
         <Contact />
       </div>
-      <Footer />
     </>
   );
 };

@@ -12,7 +12,14 @@ export default function Student({ student, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();
   const api = "http://localhost:5000/api/student";
   const [error, setError] = useState(false);
+  const [tickets, setTickets] = useState([]);
+  let ticketsStudent = [];
+  const [arreglo, setArreglo] = useState([]);
+  let numOb = 0;
+  let numEx = 0;
   const [academys, setAcademys] = useState([]);
+  const [errorInput, setErrorInput] = useState({});
+  const inputRef = useRef(null);
   const initialForm = {
     id: student ? student.id : "",
     dni: student ? student.dni : "",
@@ -21,12 +28,46 @@ export default function Student({ student, edit, riviewList }) {
     celular: student ? student.celular : "",
     adress: student ? student.adress : "",
     academia: student ? student.academia : "",
+
+    ticketOb1: student ? student.ticketOb1 : "",
+    ticketOb2: student ? student.ticketOb2 : "",
+    ticketOb3: student ? student.ticketOb3 : "",
+    ticketOb4: student ? student.ticketOb4 : "",
+    ticketOb5: student ? student.ticketOb5 : "",
+    ticketOb6: student ? student.ticketOb6 : "",
+
+    ticketEx1: student ? student.ticketEx1 : "",
+    ticketEx2: student ? student.ticketEx2 : "",
+    ticketEx3: student ? student.ticketEx3 : "",
+    ticketEx4: student ? student.ticketEx4 : "",
+    ticketEx5: student ? student.ticketEx5 : "",
+    ticketEx6: student ? student.ticketEx6 : "",
   };
 
   const { formData, onInputChange, validateForm, errorsInput, clearForm } =
     useForm(initialForm, validationSchema);
 
-  const { id, dni, nombre, email, adress, celular, academia } = formData;
+  const {
+    id,
+    dni,
+    nombre,
+    email,
+    adress,
+    celular,
+    academia,
+    ticketOb1,
+    ticketOb2,
+    ticketOb3,
+    ticketOb4,
+    ticketOb5,
+    ticketOb6,
+    ticketEx1,
+    ticketEx2,
+    ticketEx3,
+    ticketEx4,
+    ticketEx5,
+    ticketEx6,
+  } = formData;
 
   let {
     data,
@@ -36,7 +77,7 @@ export default function Student({ student, edit, riviewList }) {
     updateData,
   } = useFetch(null);
 
-  let { dataAcademy, getData } = useFetch(null);
+  let { getData } = useFetch(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,6 +106,84 @@ export default function Student({ student, edit, riviewList }) {
     if (result) {
       setAcademys(result.data.data);
     }
+  };
+  const getTickets = async () => {
+    const api = "http://localhost:5000/api/tickets";
+    const result = await getData(api);
+    if (result) {
+      setTickets(result.data.data);
+    }
+  };
+  const validaTickets = (e) => {
+    const { name, value } = e.target;
+    if (!value) {
+      return;
+    }
+
+    const seatchResul = searchTicket(value);
+    if (!seatchResul) {
+      Swal.fire({
+        position: "top",
+        icon: "info",
+        title: "El Número de Entrada no existe",
+        showConfirmButton: false,
+        timer: 3500,
+      });
+      let simulatedEvent = {
+        target: { name: name, value: "" },
+      };
+      /* se simúla en input por panntala para llamar hook */
+      onInputChange(simulatedEvent);
+      inputRef.current.focus();
+      return;
+    }
+    if (seatchResul && seatchResul.estatus != "Generada") {
+      Swal.fire({
+        position: "top",
+        icon: "info",
+        title: `El Entrada ${seatchResul.estatus}, proceso no válido.`,
+        showConfirmButton: false,
+        timer: 3500,
+      });
+      let simulatedEvent = {
+        target: { name: name, value: "" },
+      };
+      /* se simúla en input por panntala para llamar hook */
+      onInputChange(simulatedEvent);
+      inputRef.current.focus();
+      return;
+    }
+    var primerosOchoSubstring = name.substring(0, 8);
+    if ((primerosOchoSubstring = "ticketob")) {
+      numOb = numOb + 1;
+    } else {
+      numEx = numEx + 1;
+    }
+    // setArreglo((prevArreglo) => [...prevArreglo, value]);
+
+    // console.log("ticketsStudent......:", arreglo.length);
+    // const existe = arreglo.find((item) => item == value);
+    // if (existe && arreglo.length > 1) {
+    //   Swal.fire({
+    //     position: "top",
+    //     icon: "info",
+    //     title: "La Entrada ya le fué asignada al alumno",
+    //     showConfirmButton: false,
+    //     timer: 3500,
+    //   });
+    //   let simulatedEvent = {
+    //     target: { name: name, value: "" },
+    //   };
+    //   /* se simúla en input por panntala para llamar hook */
+    //   onInputChange(simulatedEvent);
+    //   inputRef.current.focus();
+    //   return;
+    // }
+  };
+
+  const searchTicket = (value) => {
+    const ticket = tickets.find((ticket) => ticket.codigoEntrada == value);
+    return ticket;
   };
 
   useEffect(() => {
@@ -110,6 +229,7 @@ export default function Student({ student, edit, riviewList }) {
 
   useEffect(() => {
     getAcademys();
+    getTickets();
   }, []);
 
   return (
@@ -204,7 +324,6 @@ export default function Student({ student, edit, riviewList }) {
                   </select>
                 </div>
               </div>
-
               <div className="row mt-3">
                 <div className="form-group">
                   <label htmlFor="adress">Dirección de Habitación</label>
@@ -212,13 +331,162 @@ export default function Student({ student, edit, riviewList }) {
                     type="text"
                     className="form-control"
                     name="adress"
-                    placeholder="Indique Dirección de Habitación..."
                     value={adress}
+                    placeholder="Indique Dirección de Habitación..."
                     onChange={onInputChange}
                   />
                 </div>
               </div>
-              <div className="btn-submit mt-4">
+              {edit && (
+                <>
+                  <h4 className="mt-3">Asignación de Entradas</h4>
+                  <h6 className="mt-3">Obligatórias</h6>
+                  <div className="row">
+                    <div className="form-group col-md-2">
+                      <label htmlFor="ticketOb1">1</label>
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketOb1"
+                        value={ticketOb1}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <label htmlFor="ticketOb2">2</label>
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketOb2"
+                        value={ticketOb2}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <label htmlFor="ticketO31">3</label>
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketOb3"
+                        value={ticketOb3}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <label htmlFor="ticketOb4">4</label>
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketOb4"
+                        value={ticketOb4}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <label htmlFor="ticketOb5">5</label>
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketOb5"
+                        value={ticketOb5}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <label htmlFor="ticketOb6">6</label>
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketOb6"
+                        value={ticketOb6}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                  </div>
+                  <h6 className="mt-3">Extras</h6>
+                  <div className="row">
+                    <div className="form-group col-md-2">
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketEx1"
+                        value={ticketEx1}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketEx2"
+                        value={ticketEx2}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketEx3"
+                        value={ticketEx3}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketEx4"
+                        value={ticketEx4}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketEx5"
+                        value={ticketEx5}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-2">
+                      <input
+                        type="text"
+                        ref={inputRef}
+                        className="form-control"
+                        name="ticketEx6"
+                        value={ticketEx6}
+                        onBlur={validaTickets}
+                        onChange={onInputChange}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+              <div className="btn-submit mt-5">
                 {edit ? (
                   <button type="submit" className="btn btn-primary w-100">
                     Actualizar

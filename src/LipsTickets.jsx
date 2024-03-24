@@ -1,23 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Menu from "./componets/menu/menu";
 import routes from "./routes/index";
-// import "./home.css";
+import imagen from "../src/assets/Banner-Reserva tu Visita.webp";
+import Footer from "./routes/footer/Footer";
 
 function LipsTickets() {
+  const [isMenuVisible, setIsMenuVisible] = useState(true);
+
+  const toggleMenu = () => {
+    setIsMenuVisible(!isMenuVisible);
+  };
   return (
     <Router>
       <header>
-        <h2>Conviértete en la próxima estella FULL STACK</h2>
-        <h2>
-          estudianto en <b> IT ACADEMY</b>
-        </h2>
+        <div className="logo"></div>
+        <div className="header"></div>
       </header>
-      <div className="main">
-        <div className="aside">
+      <main >
+        <button className="toggleButton" onClick={toggleMenu}>
+          {isMenuVisible ? "Ocultar Menú" : "Mostrar Menú"}
+        </button>
+        <aside className={`${isMenuVisible ? "asideRigth" : "asideLeft"}`}>
           <Menu />
-        </div>
-        <div className="section">
+        </aside>
+        {/* <section className="section"> */}
+        <section
+          className={`${
+            isMenuVisible ? "sectionContentRigth" : "sectionContentLeft"
+          }`}
+        >
           <Routes>
             {routes.map((route) => (
               <Route
@@ -27,8 +39,9 @@ function LipsTickets() {
               />
             ))}
           </Routes>
-        </div>
-      </div>
+        </section>
+      </main>
+      <Footer />
     </Router>
   );
 }

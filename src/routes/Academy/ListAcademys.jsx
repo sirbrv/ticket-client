@@ -4,14 +4,12 @@ import Pagination from "../../componets/services/Pagination";
 import Buscador from "../../componets/Buscador";
 import { useFetch } from "../../hooks/useFetch";
 import Academy from "./Academy";
-import Footer from "../footer/Footer";
 
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
-// import "./academia.css";
 
 export default function ListAcademia({ title }) {
   const ref = useRef(null);
@@ -41,7 +39,7 @@ export default function ListAcademia({ title }) {
 
   function handleEdit(academia) {
     const modalNivel = 2;
-    const tittle = "Edición de Estudiante";
+    const tittle = "Edición de Academias";
     openModal(
       <Academy academia={academia} edit={true} riviewList={updateList} />,
       null,
@@ -190,7 +188,6 @@ export default function ListAcademia({ title }) {
                 />
               )}
             </div>
-            <Footer />
           </>
         )
       )}

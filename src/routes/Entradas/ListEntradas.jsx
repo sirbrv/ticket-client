@@ -6,7 +6,6 @@ import { useFetch } from "../../hooks/useFetch";
 import GeneraEntradas from "./GeneraEntrada";
 import GestionEntradas from "./GestionEntrada"
 
-import Footer from "../footer/Footer";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
@@ -190,7 +189,6 @@ export default function ListEntrada({ title }) {
                 />
               )}
             </div>
-            <Footer />
           </>
         )
       )}

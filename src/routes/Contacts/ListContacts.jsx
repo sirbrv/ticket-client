@@ -213,7 +213,7 @@ export default function ListContacts({ title, accion }) {
                 />
               )}
             </div>
-            <Footer />
+            {/* <Footer /> */}
           </>
         )
       )}

@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import ValidateErrors from "../../componets/services/ValidateErrors";
-import validationSchema from "../../componets/services/validationSchema";
+import validationSchema from "../../componets/services/validationEventSchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
 
 import Swal from "sweetalert2";
-// import "./evento.css";
 
 export default function Evento({ evento, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();

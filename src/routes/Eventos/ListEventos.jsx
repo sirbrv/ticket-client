@@ -4,7 +4,6 @@ import Pagination from "../../componets/services/Pagination";
 import Buscador from "../../componets/Buscador";
 import { useFetch } from "../../hooks/useFetch";
 import Eventos from "./Eventos";
-import Footer from "../footer/Footer";
 
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -187,7 +186,6 @@ export default function ListEvento({ title }) {
                 />
               )}
             </div>
-            <Footer />
           </>
         )
       )}
