@@ -13,7 +13,8 @@ import { IoMdAdd } from "react-icons/io";
 
 export default function ListStudent({ title }) {
   const ref = useRef(null);
-  const url = "http://localhost:5000/api/students";
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  const url = `${hostServer}/api/students`;
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
@@ -54,7 +55,7 @@ export default function ListStudent({ title }) {
   };
 
   const handleDel = async (id) => {
-    const url = "http://localhost:5000/api/student";
+    const url = `${hostServer}/api/student`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -90,7 +91,7 @@ export default function ListStudent({ title }) {
   };
 
   const getStudents = async () => {
-    const url = "http://localhost:5000/api/Students";
+    const url = `${hostServer}/api/Students`;
     const result = await getData(url);
   };
 

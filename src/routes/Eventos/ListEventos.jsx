@@ -13,7 +13,10 @@ import { IoMdAdd } from "react-icons/io";
 
 export default function ListEvento({ title }) {
   const ref = useRef(null);
-  const url = "http://localhost:5000/api/events";
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  console.log("hostServer......:", hostServer);
+  const url = `${hostServer}/api/events`;
+  // const url = "http://localhost:5000/api/events";
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
@@ -52,7 +55,9 @@ export default function ListEvento({ title }) {
   };
 
   const handleDel = async (id) => {
-    const url = "http://localhost:5000/api/event";
+    const url = `${hostServer}/api/event`;
+
+    // const url = "http://localhost:5000/api/event";
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -88,7 +93,9 @@ export default function ListEvento({ title }) {
   };
 
   const getEventos = async () => {
-    const url = "http://localhost:5000/api/events";
+    const url = `${hostServer}/api/events`;
+
+    // const url = "http://localhost:5000/api/events";
     const result = await getData(url);
   };
 

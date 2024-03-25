@@ -6,11 +6,11 @@ import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
 
 import Swal from "sweetalert2";
-// import "./student.css";
 
 export default function Student({ student, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();
-  const api = "http://localhost:5000/api/student";
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  const api = `${hostServer}/api/student`;
   const [error, setError] = useState(false);
   const [tickets, setTickets] = useState([]);
   let ticketsStudent = [];
@@ -101,14 +101,14 @@ export default function Student({ student, edit, riviewList }) {
   };
 
   const getAcademys = async () => {
-    const api = "http://localhost:5000/api/academys";
+    const api = `${hostServer}/api/academys`;
     const result = await getData(api);
     if (result) {
       setAcademys(result.data.data);
     }
   };
   const getTickets = async () => {
-    const api = "http://localhost:5000/api/tickets";
+    const api = `${hostServer}/api/tickets`;
     const result = await getData(api);
     if (result) {
       setTickets(result.data.data);

@@ -6,9 +6,10 @@ import { useForm } from "../../hooks/useForm";
 import Swal from "sweetalert2";
 
 export default function VentaEntrada({ entrada, edit, riviewList }) {
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  const api = `${hostServer}/api/ticket`;
   const [error, setError] = useState(false);
   const [eventos, setEventos] = useState([]);
-  const api = "http://localhost:5000/api/ticket";
   const inputRef = useRef(null);
 
   const formaPagos = [
@@ -75,7 +76,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
         const result = await createData(api, formData);
         /* Sección de evio de correo - se condiciona que la creación terminó bien antes de enviar */
         if (result.status === 201) {
-          const api = "http://localhost:5000/api/envioticket";
+          const api = `${hostServer}/api/envioticket`;
           envioCorreo(api, formData);
         }
       } else {
@@ -93,7 +94,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
   };
 
   const getInitData = async () => {
-    let url = "http://localhost:5000/api/events";
+    let url = `${hostServer}/api/events`;
     let result = await getData(url);
     if (result) {
       setEventos(result.data.data);
@@ -101,7 +102,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
   };
 
   const handleBlur = async () => {
-    let api = "http://localhost:5000/api/ticketCodigo";
+    let api = `${hostServer}/api/ticketCodigo`;
     let url = `${api}/${codigoEntrada}`;
     let result = await getData(url);
     if (result?.status === 200) {

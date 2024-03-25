@@ -9,7 +9,10 @@ import Swal from "sweetalert2";
 
 export default function Evento({ evento, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();
-  const api = "http://localhost:5000/api/event";
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  console.log("hostServer......:", hostServer);
+  const api = `${hostServer}/api/event`;
+  // const api = "http://localhost:5000/api/event";
   const [error, setError] = useState(false);
   const initialForm = {
     id: evento ? evento.id : "",

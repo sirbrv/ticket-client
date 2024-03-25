@@ -17,14 +17,13 @@ function LipsTickets() {
         <div className="logo"></div>
         <div className="header"></div>
       </header>
-      <main >
+      <main>
         <button className="toggleButton" onClick={toggleMenu}>
           {isMenuVisible ? "Ocultar Menú" : "Mostrar Menú"}
         </button>
         <aside className={`${isMenuVisible ? "asideRigth" : "asideLeft"}`}>
           <Menu />
         </aside>
-        {/* <section className="section"> */}
         <section
           className={`${
             isMenuVisible ? "sectionContentRigth" : "sectionContentLeft"

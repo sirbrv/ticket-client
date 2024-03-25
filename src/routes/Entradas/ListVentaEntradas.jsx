@@ -13,8 +13,9 @@ import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 
 export default function ListEntrada({ title }) {
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  const url = `${hostServer}/api/tickets`;
   const ref = useRef(null);
-  const url = "http://localhost:5000/api/tickets";
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
@@ -54,7 +55,7 @@ export default function ListEntrada({ title }) {
   };
 
   const handleDel = async (id) => {
-    const url = "http://localhost:5000/api/ticket";
+    const url = `${hostServer}/api/ticket`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -90,7 +91,7 @@ export default function ListEntrada({ title }) {
   };
 
   const getEntradas = async () => {
-    const url = "http://localhost:5000/api/tickets";
+    const url = `${hostServer}/api/tickets`;
     const result = await getData(url);
   };
 

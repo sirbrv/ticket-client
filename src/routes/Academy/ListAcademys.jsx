@@ -12,8 +12,11 @@ import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 
 export default function ListAcademia({ title }) {
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  console.log("hostServer......:", hostServer);
+  const url = `${hostServer}/api/academys`;
   const ref = useRef(null);
-  const url = "http://localhost:5000/api/academys";
+  // const url = "http://localhost:5000/api/";
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
@@ -54,7 +57,9 @@ export default function ListAcademia({ title }) {
   };
 
   const handleDel = async (id) => {
-    const url = "http://localhost:5000/api/academys";
+    const url = `${hostServer}/api/academys`;
+
+    // const url = "http://localhost:5000/api/academys";
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -90,7 +95,9 @@ export default function ListAcademia({ title }) {
   };
 
   const getAcademias = async () => {
-    const url = "http://localhost:5000/api/academys";
+    const url = `${hostServer}/api/academys`;
+
+    // const url = "http://localhost:5000/api/academys";
     const result = await getData(url);
   };
 

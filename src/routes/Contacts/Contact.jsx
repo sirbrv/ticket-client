@@ -7,9 +7,9 @@ import ValidateErrors from "../../componets/services/ValidateErrors";
 import validationSchema from "../../componets/services/validationSchema";
 
 export default function Contact({ contact, edit, riviewList }) {
-  const api = "http://localhost:5000/api/contact";
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  const api = `${hostServer}/api/contact`;
   const [error, setError] = useState(false);
-  // const [courses, setCourses] = useState([]);
   const initialForm = {
     id: contact ? contact.id : "",
     nombre: contact ? contact.nombre : "",
@@ -85,7 +85,7 @@ export default function Contact({ contact, edit, riviewList }) {
       // if (data?.status === 200) {
       //   HandleNivelClose();
       // }
-      console.log(data)
+      console.log(data);
       if (data?.status === 201) {
         clearForm();
       }

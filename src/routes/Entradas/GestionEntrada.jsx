@@ -8,10 +8,11 @@ import { useAppContext } from "../../hooks/appContext";
 import Swal from "sweetalert2";
 
 export default function GeneraEntrada({ entrada, edit, riviewList }) {
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  const api = `${hostServer}/api/ticket`;
   const { HandleNivelClose } = useAppContext();
   const [academys, setAcademys] = useState([]);
   const [eventos, setEventos] = useState([]);
-  const api = "http://localhost:5000/api/ticket";
   const [error, setError] = useState(false);
 
   const tipoEntradas = [
@@ -84,13 +85,12 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
   };
 
   const getInitData = async () => {
-    let url = "http://localhost:5000/api/academys";
+    let url = `${hostServer}/api/academys`;
     let result = await getData(url);
     if (result) {
       setAcademys(result.data.data);
     }
-
-    url = "http://localhost:5000/api/events";
+    url = `${hostServer}/api/events`;
     result = await getData(url);
     if (result) {
       setEventos(result.data.data);

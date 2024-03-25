@@ -28,11 +28,6 @@ function MenuItem({ item }) {
 }
 
 function Menu() {
-  const [isMenuVisible, setIsMenuVisible] = useState(true);
-
-  const toggleMenu = () => {
-    setIsMenuVisible(!isMenuVisible);
-  };
   const menuItems = [
     {
       title: "Home",
@@ -73,10 +68,6 @@ function Menu() {
 
   return (
     <>
-      {/* <button className="toggleButton" onClick={toggleMenu}>
-        {isMenuVisible ? "Ocultar Menú" : "Mostrar Menú"}
-      </button> */}
-      {/* <div className={`menu ${isMenuVisible ? "" : "menuHidden"}`}> */}
       <div>
         {menuItems.map((item) => (
           <MenuItem key={item.title} item={item} />

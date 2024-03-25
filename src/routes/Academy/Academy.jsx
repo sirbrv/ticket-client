@@ -8,8 +8,11 @@ import { useAppContext } from "../../hooks/appContext";
 import Swal from "sweetalert2";
 
 export default function Academia({ academia, edit, riviewList }) {
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  console.log("hostServer......:", hostServer);
+
   const { HandleNivelClose } = useAppContext();
-  const api = "http://localhost:5000/api/academy";
+  const api = `${hostServer}/api/academy`;
   const [error, setError] = useState(false);
   const initialForm = {
     id: academia ? academia.id : "",
