@@ -34,7 +34,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     nombreComprador: entrada ? entrada.nombreComprador : "",
     costo: entrada ? entrada.costo : 0,
     formaPago: entrada ? entrada.formaPago : "",
-    nomtoPago: entrada ? entrada.nomtoPago : "",
+    montoPago: entrada ? entrada.montoPago : "",
     metodoPago: entrada ? entrada.metodoPago : "",
     responsable: entrada ? entrada.responsable : "",
     urlAcademia: entrada ? entrada.urlAcademia : "",
@@ -53,7 +53,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     nombreComprador,
     metodoPago,
     formaPago,
-    nomtoPago,
+    montoPago,
     responsable,
     urlAcademia,
   } = formData;
@@ -333,17 +333,17 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="nomtoPago">Monto Pagado</label>
+                    <label htmlFor="montoPago">Monto Pagado</label>
                     <input
                       type="text"
                       className="form-control"
-                      name="nomtoPago"
+                      name="montoPago"
                       placeholder="Ingrese Nombre Completo..."
-                      value={nomtoPago}
+                      value={montoPago}
                       onChange={onInputChange}
                     />
-                    {errorsInput.nomtoPago && (
-                      <ValidateErrors errors={errorsInput.nomtoPago} />
+                    {errorsInput.montoPago && (
+                      <ValidateErrors errors={errorsInput.montoPago} />
                     )}
                   </div>
 
