@@ -55,7 +55,7 @@ export default function ListEntrada({ title }) {
   };
 
   const handleDel = async (id) => {
-    const api = `${hostServer}/api/ticket`;
+    const url = `${hostServer}/api/ticket`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
