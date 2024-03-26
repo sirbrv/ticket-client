@@ -37,6 +37,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     nomtoPago: entrada ? entrada.nomtoPago : "",
     metodoPago: entrada ? entrada.metodoPago : "",
     responsable: entrada ? entrada.responsable : "",
+    urlAcademia: entrada ? entrada.urlAcademia : "",
   };
 
   const { formData, onInputChange, validateForm, errorsInput, clearForm } =
@@ -54,6 +55,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     formaPago,
     nomtoPago,
     responsable,
+    urlAcademia,
   } = formData;
 
   let {
@@ -106,7 +108,8 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     let url = `${api}/${codigoEntrada}`;
     let result = await getData(url);
     if (result?.status === 200) {
-      const { evento, costo, responsable, estatus } = result.data.data;
+      const { evento, costo, responsable, estatus, urlAcademia } =
+        result.data.data;
       let simulatedEvent = {};
 
       if (estatus != "Asignada") {
@@ -126,6 +129,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
         formData.evento = evento;
         formData.costo = costo;
         formData.responsable = responsable;
+        formData.urlAcademia = urlAcademia;
         simulatedEvent = {
           target: { name: "evento", value: evento },
         };
@@ -257,6 +261,17 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                     {errorsInput.responsable && (
                       <ValidateErrors errors={errorsInput.responsable} />
                     )}
+                  </div>
+                  <div className="form-group col-md-6">
+                    <label htmlFor="urlAcademia">URL de envío de Correos</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="urlAcademia"
+                      value={urlAcademia}
+                      onChange={onInputChange}
+                      disabled
+                    />
                   </div>
                 </div>
                 <div className="row mt-3">
