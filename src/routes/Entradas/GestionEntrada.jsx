@@ -37,6 +37,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     costo: entrada ? entrada.costo : "",
     estatus: entrada ? entrada.estatus : "",
     responsable: entrada ? entrada.responsable : "",
+    urlAcademia: entrada ? entrada.urlAcademia : "",
   };
 
   const { formData, onInputChange, validateForm, errorsInput, clearForm } =
@@ -51,6 +52,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     costo,
     estatus,
     responsable,
+    urlAcademia,
   } = formData;
 
   let {
@@ -67,7 +69,6 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     e.preventDefault();
     const numError = validateForm();
     if (!numError) {
-      let hora = `${api}`;
       if (!edit) {
         await createData(api, formData);
       } else {
@@ -192,28 +193,33 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
               <div className="row mt-3">
                 <div className="form-group col-md-12">
                   <label htmlFor="evento">Evento</label>
-                  <select
+                  <input
+                    type="text"
                     className="form-control"
                     name="evento"
                     value={evento}
                     onChange={onInputChange}
                     disabled
-                  >
-                    <option>Seleccione el Evento...</option>
-                    {eventos.map((evento) => {
-                      return (
-                        <option key={evento.id} value={evento.descripcion}>
-                          {evento.descripcion}
-                        </option>
-                      );
-                    })}
-                  </select>
+                  />
+                </div>
+              </div>
+              <div className="row mt-3">
+                <div className="form-group col-md-6">
+                  <label htmlFor="urlAcademia">URL</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="urlAcademia"
+                    value={urlAcademia}
+                    onChange={onInputChange}
+                    disabled
+                  />
                 </div>
               </div>
 
               <div className="row mt-3">
                 <div className="form-group col-md-6">
-                  <label htmlFor="estatus">Estárus de la Entrada</label>
+                  <label htmlFor="estatus">Estátus de la Entrada</label>
                   <select
                     className="form-control"
                     name="estatus"
