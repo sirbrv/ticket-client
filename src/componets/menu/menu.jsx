@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../menu/menu.css"; // Archivo CSS donde definiremos los estilos
 
-function MenuItem({ item }) {
+function MenuItem({ item, isVisible }) {
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log("isVisible......:", isVisible);
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <div className="menuItem">
-      <div onClick={handleToggle} className="menuItemTitle">
+      <div
+        onClick={handleToggle}
+        className={`menuItemTitle ${isVisible ? "" : "menuItemTitle-left"}`}
+      >
         <Link to={item.route}>{item.title}</Link>
       </div>
       {isOpen && (
@@ -27,7 +30,10 @@ function MenuItem({ item }) {
   );
 }
 
-function Menu() {
+function Menu({ isMenuVisible }) {
+  const [isVisible, setIsVisible] = useState(true);
+  console.log("isMenuVisible......:", isMenuVisible);
+
   const menuItems = [
     {
       title: "Home",
@@ -49,6 +55,7 @@ function Menu() {
         { title: "Gestión de Estudiante", route: "/students" },
         { title: "Gestión de Enentos", route: "/events" },
         { title: "Gestión de Entradas", route: "/tickets" },
+        { title: "Gestión de Entradas Vendidas", route: "/ticketsVendido" },
         { title: "Contactos", route: "/contact" },
       ],
     },
@@ -66,11 +73,15 @@ function Menu() {
     },
   ];
 
+  useEffect(() => {
+    setIsVisible(isMenuVisible);
+  }, []);
+
   return (
     <>
       <div>
         {menuItems.map((item) => (
-          <MenuItem key={item.title} item={item} />
+          <MenuItem key={item.title} item={item} isVisible={isVisible} />
         ))}
       </div>
     </>

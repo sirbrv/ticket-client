@@ -41,13 +41,13 @@ main {
 .asideRigth {
   width: 20%;
   background-color: rgb(69, 73, 76);
-  height: 100vh;
+  height: 100%;
   transition: width 0.3s ease, margin-rigth 0.3s ease; /* Agrega transiciones suaves */
 }
 
 .sectionContentLeft {
-  width: 96%; /* Inicialmente ocupa el 80% del ancho */
-  margin-left: 03%; /* Deja espacio para el menú cuando está visible */
+  width: 100%; /* Inicialmente ocupa el 80% del ancho */
+  margin-left: 0%; /* Deja espacio para el menú cuando está visible */
   transition: width 0.3s ease, margin-left 0.3s ease; /* Agrega transiciones suaves */
   margin-bottom: 100px;
 }
@@ -175,11 +175,11 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 100px;
+  /* margin: 0 100px; */
   /* border: 0.5px solid rgb(182, 180, 180); */
-  padding: 30px 40px;
+  padding: 30px 20px;
   border-radius: 6px;
-  box-shadow: 2px 3px 5px 5px rgb(212, 208, 208);
+  box-shadow: 2px 3px 4px 2px rgb(212, 208, 208);
 }
 
 .btn-contact {

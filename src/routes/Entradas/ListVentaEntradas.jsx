@@ -3,8 +3,7 @@ import openModal from "../../componets/modal/OpenModal";
 import Pagination from "../../componets/services/Pagination";
 import Buscador from "../../componets/Buscador";
 import { useFetch } from "../../hooks/useFetch";
-import GeneraEntradas from "./GeneraEntrada";
-import GestionEntradas from "./GestionEntrada";
+import VentaEntrada from "./VentaEntrada";
 
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -14,7 +13,7 @@ import { IoMdAdd } from "react-icons/io";
 
 export default function ListEntrada({ title }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const url = `${hostServer}/api/tickets`;
+  const url = `${hostServer}/api/ticketVentas`;
   const ref = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
@@ -22,15 +21,14 @@ export default function ListEntrada({ title }) {
   let { data, isLoading, getData, deleteData } = useFetch(`${url}`);
   const filters = [
     { id: 1, nombre: "entrada", descrip: "Entrada" },
-    { id: 2, nombre: "tipoEntrada", descrip: "Tipo de Entrada" },
-    { id: 3, nombre: "academia", descrip: "Academia" },
+    { id: 2, nombre: "responsable", descrip: "Responsable de Venta" },
   ];
 
   function handleAddEntradas() {
     const modalNivel = 2;
-    const tittle = "Generación de Entradas";
+    const tittle = "";
     openModal(
-      <GeneraEntradas Entrada={""} edit={false} riviewList={updateList} />,
+      <VentaEntrada Entrada={""} edit={false} riviewList={updateList} />,
       null,
       "small",
       tittle,
@@ -40,9 +38,9 @@ export default function ListEntrada({ title }) {
 
   function handleEdit(entrada) {
     const modalNivel = 2;
-    const tittle = "Edición de Entradas";
+    const tittle = "";
     openModal(
-      <GestionEntradas entrada={entrada} edit={true} riviewList={updateList} />,
+      <VentaEntrada entrada={entrada} edit={true} riviewList={updateList} />,
       null,
       "medio",
       tittle,
@@ -55,7 +53,7 @@ export default function ListEntrada({ title }) {
   };
 
   const handleDel = async (id) => {
-    const url = `${hostServer}/api/ticket`;
+    const url = `${hostServer}/api/ticketVenta`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -91,7 +89,7 @@ export default function ListEntrada({ title }) {
   };
 
   const getEntradas = async () => {
-    const url = `${hostServer}/api/tickets`;
+    const url = `${hostServer}/api/ticketVentas`;
     const result = await getData(url);
   };
 
@@ -130,13 +128,13 @@ export default function ListEntrada({ title }) {
                 <thead>
                   <tr className="table-dark">
                     <th scope="col">#</th>
-                    <th scope="col">Academia</th>
                     <th scope="col">Número de la Entrada</th>
-                    <th scope="col">Tipo de Entrada</th>
+                    <th scope="col">Responsable de Venta</th>
+                    <th scope="col">Comprador</th>
                     <th scope="col">Costo</th>
-                    <th scope="col">Responsable de Ventae</th>
-                    <th scope="col">Estátus</th>
-                    <th scope="col" colSpan={3}>
+                    <th scope="col">Método de Pago</th>
+                    <th scope="col">Monto Pagado</th>
+                    <th scope="col" colSpan={2}>
                       Acción
                     </th>
                   </tr>
@@ -155,12 +153,12 @@ export default function ListEntrada({ title }) {
                       return (
                         <tr key={entrada.id}>
                           <td>{entrada.id}</td>
-                          <td>{entrada.academia}</td>
                           <td>{entrada.codigoEntrada}</td>
-                          <td>{entrada.tipoEntrada}</td>
-                          <td>{entrada.costo} </td>
-                          <td>{entrada.responsable} </td>
-                          <td>{entrada.estatus} </td>
+                          <td>{entrada.responsable}</td>
+                          <td>{entrada.nombreComprador}</td>
+                          <td>{entrada.costo}</td>
+                          <td>{entrada.metodoPago} </td>
+                          <td>{entrada.montoPago} </td>
                           <td>
                             <TbEdit
                               className=".btnShow"

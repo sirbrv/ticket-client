@@ -11,6 +11,7 @@ function LipsTickets() {
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
   };
+
   return (
     <Router>
       <header>

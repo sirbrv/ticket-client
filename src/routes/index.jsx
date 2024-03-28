@@ -6,6 +6,7 @@ import Academys from "./Academy/ListAcademys";
 import Entradas from "./Entradas/ListEntradas";
 import Events from "./Eventos/ListEventos";
 import VentaEntrada from "./Entradas/VentaEntrada";
+import TicketsVendido from "./Entradas/ListVentaEntradas"
 import Exit from "../componets/exit/Exit";
 
 // import Exit from "./components/Exit";
@@ -33,6 +34,10 @@ const routes = [
     element: <VentaEntrada title={"Venta de Entradas"} />,
   },
   {
+    path: "/ticketsVendido",
+    element: <TicketsVendido title={"Gestión de Entradas Vendidas"} />,
+  },
+  {
     path: "/qrTicket",
     // element: <ReadScanner title={"Escaneo de Entradas"} accion={"ver"} />,
     element: <ReadScanner title={"Escaneo de Entradas"} />,
@@ -41,7 +46,7 @@ const routes = [
     path: "/contact",
     element: <Contact title={"Contactos"} />,
   },
-  { path: "/exit", element: <Exit  /> },
+  { path: "/exit", element: <Exit /> },
 ];
 
 export default routes;

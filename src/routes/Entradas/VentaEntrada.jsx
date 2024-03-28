@@ -215,6 +215,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                       value={codigoEntrada}
                       onChange={onInputChange}
                       onBlur={handleBlur}
+                      disabled={edit ? true : false}
                     />
                     {errorsInput.codigoEntrada && (
                       <ValidateErrors errors={errorsInput.codigoEntrada} />
