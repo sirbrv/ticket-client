@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Menu from "./componets/menu/menu";
 import routes from "./routes/index";
-import imagen from "../src/assets/Banner-Reserva tu Visita.webp";
 import Footer from "./routes/footer/Footer";
+import { useEffect } from "react";
 
 function LipsTickets() {
   const [isMenuVisible, setIsMenuVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
 
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
   };
+  useEffect(() => {
+    setIsVisible(isMenuVisible);
+  }, [isMenuVisible]);
 
   return (
     <Router>
@@ -23,7 +27,7 @@ function LipsTickets() {
           {isMenuVisible ? "Ocultar Menú" : "Mostrar Menú"}
         </button>
         <aside className={`${isMenuVisible ? "asideRigth" : "asideLeft"}`}>
-          <Menu />
+          <Menu isVisible={isVisible} />
         </aside>
         <section
           className={`${

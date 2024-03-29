@@ -12,9 +12,12 @@ export default function Student({ student, edit, riviewList }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/student`;
   const [error, setError] = useState(false);
+  const [histAsign, setHistAsign] = useState(false);
+  const [isHistory, SetIshistory] = useState(false);
   const [tickets, setTickets] = useState([]);
   let ticketsStudent = [];
   const [arreglo, setArreglo] = useState([]);
+  const [history, setHistory] = useState([]);
   let numOb = 0;
   let numEx = 0;
   const [academys, setAcademys] = useState([]);
@@ -28,7 +31,6 @@ export default function Student({ student, edit, riviewList }) {
     celular: student ? student.celular : "",
     adress: student ? student.adress : "",
     academia: student ? student.academia : "",
-
     ticketOb1: student ? student.ticketOb1 : "",
     ticketOb2: student ? student.ticketOb2 : "",
     ticketOb3: student ? student.ticketOb3 : "",
@@ -71,7 +73,7 @@ export default function Student({ student, edit, riviewList }) {
 
   let {
     data,
-    isLoading = false,
+    isLoading,
     // getData,
     createData,
     updateData,
@@ -107,6 +109,17 @@ export default function Student({ student, edit, riviewList }) {
       setAcademys(result.data.data);
     }
   };
+
+  const handleHistoria = () => {
+    SetIshistory(!isHistory);
+  };
+
+  const getStudenHistory = async (dni) => {
+    const url = `${hostServer}/api/studentHistoy/${dni}`;
+    const result = await getData(url);
+    setHistory(result.data.data);
+  };
+
   const getTickets = async () => {
     const api = `${hostServer}/api/tickets`;
     const result = await getData(api);
@@ -228,21 +241,28 @@ export default function Student({ student, edit, riviewList }) {
   }, [data]);
 
   useEffect(() => {
+    setHistAsign(!histAsign);
+  }, [isHistory]);
+
+  useEffect(() => {
     getAcademys();
     getTickets();
+    if (edit) {
+      getStudenHistory(student.dni);
+    }
   }, []);
 
   return (
     <>
       {
-        // isLoading ? (
-        // <h3>Cargando...</h3>
+        //   !isLoading ? (
+        //   <h3>Cargando...</h3>
         // ) :
         error ? (
           errorMessage()
         ) : (
           <div className="container my-5 px-5">
-            <form onSubmit={handleSubmit}>
+            <form>
               <div className="row">
                 <div className="form-group col-md-4">
                   <label htmlFor="dni">Número de Documento</label>
@@ -339,7 +359,9 @@ export default function Student({ student, edit, riviewList }) {
               </div>
               {edit && (
                 <>
-                  <h4 className="mt-3">Asignación de Entradas</h4>
+                  <div>
+                    <h4 className="mt-3">Asignación de Entradas</h4>
+                  </div>
                   <h6 className="mt-3">Obligatórias</h6>
                   <div className="row">
                     <div className="form-group col-md-2">
@@ -488,19 +510,70 @@ export default function Student({ student, edit, riviewList }) {
               )}
               <div className="btn-submit mt-5">
                 {edit ? (
-                  <button type="submit" className="btn btn-primary w-100">
+                  <button
+                    onClick={handleSubmit}
+                    className="btn btn-primary w-100"
+                  >
                     Actualizar
                   </button>
                 ) : (
-                  <button type="submit" className="btn btn-success w-100">
+                  <button
+                    onClick={handleSubmit}
+                    type="submit"
+                    className="btn btn-success w-100"
+                  >
                     Agregar
                   </button>
                 )}
               </div>
             </form>
+            <button
+              type="botton"
+              className="btn btn-success mt-3"
+              onClick={handleHistoria}
+            >
+              Ver Histórico
+            </button>
           </div>
         )
       }
+      {!histAsign && (
+        <div className="container  px-5">
+          <h4> Histórico de Asignaciones</h4>
+          <table className="table table-striped table-bordered">
+            <thead>
+              <tr className="table-dark">
+                <th scope="col">Entrada</th>
+                <th scope="col">Evento</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Estátus</th>
+                <th scope="col">Consto</th>
+                <th scope="col">Abono</th>
+              </tr>
+            </thead>
+            <tbody>
+              {!history ? (
+                <tr>
+                  <td scope="col" colSpan={12}>
+                    <h3 className="textCenter">No tiene Asignaciones.</h3>
+                  </td>
+                </tr>
+              ) : (
+                history.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.codigoEntrada}</td>
+                    <td>{item.evento}</td>
+                    <td>{item.tipoTicket}</td>
+                    <td>{item.statusProceso}</td>
+                    <td>{item.costo}</td>
+                    <td>{item.montoPagado}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
     </>
   );
 }

@@ -32,7 +32,7 @@ main {
 
 .asideLeft {
   width: 0%;
-  background-color: rgb(69, 73, 76);
+  background-color: white;
   height: 100vh;
   margin-left: 0;
   transition: width 0.3s ease, margin-left 0.3s ease; /* Agrega transiciones suaves */

@@ -4,7 +4,8 @@ import "../menu/menu.css"; // Archivo CSS donde definiremos los estilos
 
 function MenuItem({ item, isVisible }) {
   const [isOpen, setIsOpen] = useState(false);
-  console.log("isVisible......:", isVisible);
+  console.log("visible....:", isVisible);
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -13,14 +14,18 @@ function MenuItem({ item, isVisible }) {
     <div className="menuItem">
       <div
         onClick={handleToggle}
-        className={`menuItemTitle ${isVisible ? "" : "menuItemTitle-left"}`}
+        className={`${isVisible ? "menuItemTitle" : "menuItemTitle-left"}`}
       >
         <Link to={item.route}>{item.title}</Link>
       </div>
       {isOpen && (
         <ul className="submenu">
           {item.subItems.map((subItem) => (
-            <li key={subItem.title} className="submenuItem">
+            <li
+              key={subItem.title}
+              // className="submenuItem"
+              className={`${isVisible ? "submenuItem" : "submenuItem-left"}`}
+            >
               <Link to={subItem.route}>{subItem.title}</Link>
             </li>
           ))}
@@ -30,10 +35,8 @@ function MenuItem({ item, isVisible }) {
   );
 }
 
-function Menu({ isMenuVisible }) {
-  const [isVisible, setIsVisible] = useState(true);
-  console.log("isMenuVisible......:", isMenuVisible);
-
+function Menu({ isVisible }) {
+  // const [isVisible, setIsVisible] = useState(true);
   const menuItems = [
     {
       title: "Home",
@@ -73,9 +76,9 @@ function Menu({ isMenuVisible }) {
     },
   ];
 
-  useEffect(() => {
-    setIsVisible(isMenuVisible);
-  }, []);
+  // useEffect(() => {
+  //   setIsVisible(isVisible);
+  // }, []);
 
   return (
     <>

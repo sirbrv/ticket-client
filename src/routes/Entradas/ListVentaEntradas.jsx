@@ -120,9 +120,9 @@ export default function ListEntrada({ title }) {
                     onPageChange={handlePageChange}
                   />
                 </div>
-                <button className="addBtn" onClick={handleAddEntradas}>
+                {/* <button className="addBtn" onClick={handleAddEntradas}>
                   <IoMdAdd />
-                </button>
+                </button> */}
               </div>
               <table className="table table-striped table-bordered">
                 <thead>
