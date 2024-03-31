@@ -29,7 +29,7 @@ export default function ListContacts({ title, accion }) {
     { id: 2, nombre: "nombre", descrip: "Nombre" },
   ];
   function handleAddContacts() {
-    const tittle = "Adición de Contacts";
+    const tittle = "Adición de Contactos";
     openModal(
       <Contact contact={""} edit={false} riviewList={updateList} />,
       null,
@@ -41,7 +41,7 @@ export default function ListContacts({ title, accion }) {
   }
 
   function handleEdit(contact) {
-    const tittle = "Edición de Contacts";
+    const tittle = "Edición de Contactos";
     openModal(
       <Contact contact={contact} edit={true} riviewList={updateList} />,
       null,
@@ -95,7 +95,7 @@ export default function ListContacts({ title, accion }) {
     });
   };
 
-  const nextPase = (pagItems, pageCurrent) => {
+  const nextPage = (pagItems, pageCurrent) => {
     setItemsPage(pagItems);
     setPage(pageCurrent);
   };
@@ -126,9 +126,9 @@ export default function ListContacts({ title, accion }) {
       ) : (
         selectedItems && (
           <>
-            <div className=" container">
+            <div className="marco">
+              <h1 className="my-3">Contactos</h1>
               <div className="tittle-search">
-                <div className="tittle">{title}</div>
                 <div className="search">
                   <Buscador
                     filters={filters}
@@ -208,7 +208,7 @@ export default function ListContacts({ title, accion }) {
                   items={data.data.data}
                   page={page}
                   pagItems={itemsPage}
-                  nextPase={nextPase}
+                  nextPage={nextPage}
                   onPageChange={handlePageChange}
                 />
               )}

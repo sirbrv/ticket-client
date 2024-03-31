@@ -1,6 +1,5 @@
 // App.js
 import React from "react";
-import { Link } from "react-router-dom";
 // import MainSection from "./MainSection";
 // import CardCourse from "./CardCourse";
 import Contact from "../Contacts/Contact";

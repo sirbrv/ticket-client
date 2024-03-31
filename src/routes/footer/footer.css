@@ -1,38 +1,17 @@
-/* ************************************************************* */
+*************************************************************
 /* *****************         Footer       ********************** */
 /* ************************************************************* */
 /* CSS Base para todos los tamaños de pantalla */
-
-.footer-body {
-  display: flex;
-  align-items: start;
-  justify-content: space-around;
-  background-color: rgb(42, 41, 41);
-  color: rgb(227, 227, 227);
-  margin: 1px 0 0 0;
-  font-size: 1em;
-  padding: 0px 5px;
-  width: 100vw;
-}
-
-.icon-color {
-  color: rgb(20, 254, 12);
-  margin-right: 15px;
-}
-
-.icon-color-ub {
-  color: rgb(20, 254, 12);
-  margin-right: 15px;
-}
 
 .linea {
   color: rgb(22, 163, 251);
   display: flex;
   align-items: flex-start;
 }
+
 .ubicacion,
 .ubicanos,
-.abour {
+.about {
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -40,7 +19,10 @@
   width: 32%;
   padding: 10px 10px;
 }
-
+.place {
+  display: flex;
+  justify-content: flex-start;
+}
 .footer-footer {
   display: flex;
   justify-content: center;
@@ -55,14 +37,35 @@
   margin-top: 10px;
 }
 
+.ticketFooter {
+  display: flex;
+  background-color: rgb(48, 48, 48);
+  align-items: start;
+  justify-content: space-around;
+  color: rgb(227, 227, 227);
+  margin: 1px 0 0 0;
+  font-size: 1em;
+  padding: 30px 5px;
+  width: 100vw;
+}
+
+.icon-color {
+  color: rgb(20, 254, 12);
+  margin-right: 15px;
+}
+
+.icon-color-ub {
+  color: rgb(20, 254, 12);
+  margin-right: 15px;
+}
 @media (max-width: 950px) {
-  .footer-body {
+  .ticketFooter {
     flex-wrap: wrap;
     font-size: 0.8em;
   }
 
   .ubicacion,
-  .abour {
+  .about {
     width: 45%; /* Dos columnas en la misma fila */
   }
 
@@ -70,23 +73,39 @@
     padding: 0 10px;
     width: 95%; /* Tercera columna en fila separada */
   }
-  .footer-footer {
+  .ticketFooter {
     font-size: 0.8em;
   }
-}
 
+  .phone,
+  .correo {
+    height: 8px;
+    font-size: medium;
+  }
+
+  .footer-footer {
+    font-size: 0.7rem;
+  }
+}
 /* Consulta de medios para dispositivos móviles */
 @media (max-width: 600px) {
-  .footer-body {
+  .ticketFooter {
     font-size: 0.7em;
   }
 
   .ubicacion,
   .ubicanos,
-  .abour {
+  .about {
     width: 90%; /* Tercera columna en fila separada */
   }
-  .footer-footer {
+
+  .ticketFooter {
     font-size: 0.7em;
+  }
+
+  .phone,
+  .correo {
+    height: 8px;
+    font-size: medium;
   }
 }

@@ -4,7 +4,6 @@ import "../menu/menu.css"; // Archivo CSS donde definiremos los estilos
 
 function MenuItem({ item, isVisible }) {
   const [isOpen, setIsOpen] = useState(false);
-  console.log("visible....:", isVisible);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -23,7 +22,6 @@ function MenuItem({ item, isVisible }) {
           {item.subItems.map((subItem) => (
             <li
               key={subItem.title}
-              // className="submenuItem"
               className={`${isVisible ? "submenuItem" : "submenuItem-left"}`}
             >
               <Link to={subItem.route}>{subItem.title}</Link>
@@ -36,7 +34,6 @@ function MenuItem({ item, isVisible }) {
 }
 
 function Menu({ isVisible }) {
-  // const [isVisible, setIsVisible] = useState(true);
   const menuItems = [
     {
       title: "Home",
@@ -44,11 +41,14 @@ function Menu({ isVisible }) {
       subItems: [],
     },
     {
+      title: "Usuários",
+      subItems: [{ title: "Perfíl", route: "/perfil" }],
+    },
+    {
       title: "Entradas",
       subItems: [
         { title: "Venta de Entradas", route: "/ventaTicket" },
         { title: "Scaner de Entradas", route: "/qrTicket" },
-        // { title: "Perfíl", route: "/perfil" },
       ],
     },
     {
@@ -56,29 +56,25 @@ function Menu({ isVisible }) {
       subItems: [
         { title: "Gestión de Academias", route: "/academias" },
         { title: "Gestión de Estudiante", route: "/students" },
-        { title: "Gestión de Enentos", route: "/events" },
+        { title: "Gestión de Eventos", route: "/events" },
         { title: "Gestión de Entradas", route: "/tickets" },
-        { title: "Gestión de Entradas Vendidas", route: "/ticketsVendido" },
+        { title: "Gestión de Entradas Vendídas", route: "/ticketsVendido" },
+        { title: "Gestión de Usuários", route: "/users" },
         { title: "Contactos", route: "/contact" },
       ],
     },
-    // {
-    //   title: "Listados",
-    //   subItems: [
-    //     { title: "Cursos", route: "/vecurso" },
-    //     { title: "Listado", route: "/matricula" },
-    //   ],
-    // },
+    {
+      title: "Listados",
+      subItems: [
+        { title: "Gestión Administratíva", route: "/getionAdmin" },
+      ],
+    },
     {
       title: "Exit",
       route: "/exit",
       subItems: [],
     },
   ];
-
-  // useEffect(() => {
-  //   setIsVisible(isVisible);
-  // }, []);
 
   return (
     <>

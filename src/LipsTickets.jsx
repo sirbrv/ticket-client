@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Menu from "./componets/menu/menu";
 import routes from "./routes/index";
 import Footer from "./routes/footer/Footer";
+import { UsersProvider } from "./hooks/UsersContext";
+
 import { useEffect } from "react";
 
 function LipsTickets() {
@@ -17,36 +19,38 @@ function LipsTickets() {
   }, [isMenuVisible]);
 
   return (
-    <Router>
-      <header>
-        <div className="logo"></div>
-        <div className="header"></div>
-      </header>
-      <main>
-        <button className="toggleButton" onClick={toggleMenu}>
-          {isMenuVisible ? "Ocultar Menú" : "Mostrar Menú"}
-        </button>
-        <aside className={`${isMenuVisible ? "asideRigth" : "asideLeft"}`}>
-          <Menu isVisible={isVisible} />
-        </aside>
-        <section
-          className={`${
-            isMenuVisible ? "sectionContentRigth" : "sectionContentLeft"
-          }`}
-        >
-          <Routes>
-            {routes.map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.element}
-              />
-            ))}
-          </Routes>
-        </section>
-      </main>
-      <Footer />
-    </Router>
+    <UsersProvider>
+      <Router>
+        <header>
+          <div className="logo"></div>
+          <div className="header"></div>
+        </header>
+        <main>
+          <button className="toggleButton" onClick={toggleMenu}>
+            {isMenuVisible ? "Ocultar Menú" : "Mostrar Menú"}
+          </button>
+          <aside className={`${isMenuVisible ? "asideRigth" : "asideLeft"}`}>
+            <Menu isVisible={isVisible} />
+          </aside>
+          <section
+            className={`${
+              isMenuVisible ? "sectionContentRigth" : "sectionContentLeft"
+            }`}
+          >
+            <Routes>
+              {routes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.element}
+                />
+              ))}
+            </Routes>
+          </section>
+        </main>
+        <Footer />
+      </Router>
+    </UsersProvider>
   );
 }
 

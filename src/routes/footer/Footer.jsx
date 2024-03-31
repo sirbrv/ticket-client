@@ -11,30 +11,32 @@ export default function Footer() {
   return (
     <>
       <footer>
-        <section className="footer-body">
+        <section className="ticketFooter">
           <div className="ubicacion">
             <h4>Puntos de Contactos</h4>
-            <h5 className="linea">____________</h5>
-            <p className="encuentrano">
-              <PiMapPinLine className="icon-color-ub" size="18px" />
-              <span>
-                Primer piso, Sindhu Center, Moon Market, cerca del restaurante
-                Bundu Khan, Allama Iqbal Town, Lahore
-              </span>
-            </p>
+            {/* <h5 className="linea">____________</h5> */}
+            <div className="place">
+              <PiMapPinLine className="icon-color-ub" size="28px" />
+              <p className="encuentrano">
+                <span>
+                  Primer piso, Sindhu Center, Moon Market, cerca del restaurante
+                  Bundu Khan, Allama Iqbal Town, Lahore
+                </span>
+              </p>
+            </div>
 
             <p className="phone">
-              <BsTelephone className="icon-color-ub" size="18px" /> +598
-              543234543
+              <BsTelephone className="icon-color-ub" size="18px" />
+              +598 543234543
             </p>
             <p className="correo">
-              <MdOutlineMarkEmailRead className="icon-color-ub" size="18px" />{" "}
+              <MdOutlineMarkEmailRead className="icon-color-ub" size="18px" />
               info@academy.com
             </p>
           </div>
-          <div className="abour">
+          <div className="about">
             <h4>About</h4>
-            <h5 className="linea">_____________</h5>
+            {/* <h5 className="linea">_____________</h5> */}
             <p>
               Estamos aquí para la comunidad. La misión es hacer que la
               educación de calidad sea asequible y accesible para todos en esta
@@ -43,8 +45,8 @@ export default function Footer() {
             </p>
           </div>
           <div className="ubicanos">
-            <h4>Puedes Ubicarnos</h4>
-            <h5 className="linea">_________________</h5>
+            <h4>Redes Sociales</h4>
+            {/* <h5 className="linea">_________________</h5> */}
             <h6>
               <ImWhatsapp className="icon-color" /> WhatSapp
             </h6>

@@ -4,14 +4,11 @@ import validationSchema from "../../componets/services/validationAcademySchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
-
 import Swal from "sweetalert2";
 
 export default function Academia({ academia, edit, riviewList }) {
-  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  console.log("hostServer......:", hostServer);
-
   const { HandleNivelClose } = useAppContext();
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/academy`;
   const [error, setError] = useState(false);
   const initialForm = {

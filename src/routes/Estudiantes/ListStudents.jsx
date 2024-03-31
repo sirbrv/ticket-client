@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import openModal from "../../componets/modal/OpenModal";
 import Pagination from "../../componets/services/Pagination";
+import AccessProfil from "../../componets/services/AccessProfil";
 import Buscador from "../../componets/Buscador";
 import { useFetch } from "../../hooks/useFetch";
 import Student from "./Student";
@@ -12,6 +13,7 @@ import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 
 export default function ListStudent({ title }) {
+  AccessProfil();
   const ref = useRef(null);
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const url = `${hostServer}/api/students`;
@@ -227,16 +229,18 @@ export default function ListStudent({ title }) {
                         Acción
                       </th>
                     </tr>
-                  </thead>{" "}
+                  </thead>
                   <tbody>
                     {data?.status === 500 ? (
-                      <tr>
-                        <td scope="col" colSpan={12}>
-                          <h3 className="textCenter">
-                            No hay información para esta Entidad.
-                          </h3>
-                        </td>
-                      </tr>
+                      <tbody>
+                        <tr>
+                          <td scope="col" colSpan={12}>
+                            <h3 className="textCenter">
+                              No hay información para esta Entidad.
+                            </h3>
+                          </td>
+                        </tr>
+                      </tbody>
                     ) : (
                       selectedItems.map((student) => (
                         <tr key={student.id}>

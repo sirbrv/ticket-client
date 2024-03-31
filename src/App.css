@@ -302,7 +302,8 @@ main {
 @media (max-width: 950px) {
   .marco {
     font-size: 0.9em;
-  }
+     padding: 10px;
+ }
   .courseSection {
     display: flex;
     flex-direction: column;
@@ -316,5 +317,6 @@ main {
 @media (max-width: 600px) {
   .marco {
     font-size: 0.7em;
+    padding: 5px;
   }
 }

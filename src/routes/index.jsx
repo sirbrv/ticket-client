@@ -5,8 +5,10 @@ import Students from "./Estudiantes/ListStudents";
 import Academys from "./Academy/ListAcademys";
 import Entradas from "./Entradas/ListEntradas";
 import Events from "./Eventos/ListEventos";
+import Users from "./User/ListUser";
 import VentaEntrada from "./Entradas/VentaEntrada";
-import TicketsVendido from "./Entradas/ListVentaEntradas"
+import TicketsVendido from "./Entradas/ListVentaEntradas";
+import Login from "./User/Login";
 import Exit from "../componets/exit/Exit";
 
 // import Exit from "./components/Exit";
@@ -38,6 +40,10 @@ const routes = [
     element: <TicketsVendido title={"Gestión de Entradas Vendidas"} />,
   },
   {
+    path: "/users",
+    element: <Users title={"Gestión de Usuários"} />,
+  },
+  {
     path: "/qrTicket",
     // element: <ReadScanner title={"Escaneo de Entradas"} accion={"ver"} />,
     element: <ReadScanner title={"Escaneo de Entradas"} />,
@@ -45,6 +51,10 @@ const routes = [
   {
     path: "/contact",
     element: <Contact title={"Contactos"} />,
+  },
+  {
+    path: "/login",
+    element: <Login title={"Loogín"} />,
   },
   { path: "/exit", element: <Exit /> },
 ];

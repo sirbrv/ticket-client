@@ -1,13 +1,10 @@
-import React, { createContext, useContext, useRef } from "react";
+import React, { createContext, useContext, useRef, useState } from "react";
 
 const AppContext = createContext();
-
 export const useAppContext = () => {
   return useContext(AppContext);
 };
-
 export const AppContextProvider = ({ children }) => {
-
   const HandleNivelClose = async () => {
     const miModal = document.getElementById("modalDos");
     miModal.classList.add("fadeOut");
@@ -15,9 +12,7 @@ export const AppContextProvider = ({ children }) => {
       const div_root = document.getElementById("modalDos");
       div_root.remove();
     });
-
   };
-
   return (
     <AppContext.Provider value={{ HandleNivelClose }}>
       {children}

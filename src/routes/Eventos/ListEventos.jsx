@@ -1,22 +1,21 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import openModal from "../../componets/modal/OpenModal";
 import Pagination from "../../componets/services/Pagination";
+import AccessProfil from "../../componets/services/AccessProfil";
 import Buscador from "../../componets/Buscador";
 import { useFetch } from "../../hooks/useFetch";
 import Eventos from "./Eventos";
 
 import Swal from "sweetalert2";
-import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 
 export default function ListEvento({ title }) {
+  AccessProfil();
   const ref = useRef(null);
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  console.log("hostServer......:", hostServer);
   const url = `${hostServer}/api/events`;
-  // const url = "http://localhost:5000/api/events";
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
@@ -56,8 +55,6 @@ export default function ListEvento({ title }) {
 
   const handleDel = async (id) => {
     const url = `${hostServer}/api/event`;
-
-    // const url = "http://localhost:5000/api/event";
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -94,8 +91,6 @@ export default function ListEvento({ title }) {
 
   const getEventos = async () => {
     const url = `${hostServer}/api/events`;
-
-    // const url = "http://localhost:5000/api/events";
     const result = await getData(url);
   };
 
@@ -116,10 +111,9 @@ export default function ListEvento({ title }) {
       ) : (
         selectedItems && (
           <>
-            <div className="marco">
+            <div className="marco"> 
               <h1 className="my-3">Gestión de Eventos</h1>
               <div className="tittle-search">
-                {/* <div className="tittle">{title}</div> */}
                 <div className="search">
                   <Buscador
                     filters={filters}
