@@ -5,7 +5,7 @@ import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
 
-import Swal from "sweetalert2";
+import Swal from "sweetalert2"; 
 
 export default function Evento({ evento, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();

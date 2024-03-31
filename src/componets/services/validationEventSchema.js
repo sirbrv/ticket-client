@@ -6,7 +6,7 @@ const validationSchema = {
   ],
   nombre: [
     (value) => (value.trim() === "" ? "El Nombre es requerído" : undefined),
-  ],
+  ], 
   telefono: [
     (value) =>
       value.trim() === "" ? "El número de teléfono es requerído" : undefined,

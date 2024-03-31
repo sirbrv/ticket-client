@@ -89,7 +89,7 @@ function Modal({
                     <VscChromeClose />
                   </button>
                 }
-              </div>
+              </div> 
             </div>
             <div className="modalContent">{children}</div>
           </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import "./search.css";
-
+ 
 const Buscador = ({ filters, registros, onPageChange }) => {
   console.log();
   const [campo, setCampo] = useState("");

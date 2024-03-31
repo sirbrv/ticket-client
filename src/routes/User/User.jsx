@@ -6,8 +6,6 @@ import { useAppContext } from "../../hooks/appContext";
 import Swal from "sweetalert2";
 import validationSchema from "../../componets/services/validationUserSchema";
 
-// import "./user.css";
-
 export default function User({ user, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;

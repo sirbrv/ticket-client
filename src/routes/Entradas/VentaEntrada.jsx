@@ -4,11 +4,11 @@ import validationSchema from "../../componets/services/validationVentaSchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import Swal from "sweetalert2";
-
+ 
 export default function VentaEntrada({ entrada, edit, riviewList }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/ticket`;
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(false); 
   const [eventos, setEventos] = useState([]);
   const inputRef = useRef(null);
 

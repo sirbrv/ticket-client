@@ -129,7 +129,7 @@ export default function ListContacts({ title, accion }) {
             <div className="marco">
               <h1 className="my-3">Contactos</h1>
               <div className="tittle-search">
-                <div className="search">
+                <div className="search"> 
                   <Buscador
                     filters={filters}
                     registros={data?.data?.data}

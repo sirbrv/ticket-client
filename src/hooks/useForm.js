@@ -6,7 +6,6 @@ export const useForm = (inicialForm, validationSchema) => {
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
-    console.log("En useForm----:", name, value);
     setFormState({
       ...formData,
       [name]: value,

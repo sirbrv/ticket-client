@@ -109,7 +109,7 @@ export default function ListEvento({ title }) {
       {isLoading ? (
         <h3 className="mt-5">Cargando...</h3>
       ) : (
-        selectedItems && (
+        selectedItems && ( 
           <>
             <div className="marco"> 
               <h1 className="my-3">Gestión de Eventos</h1>

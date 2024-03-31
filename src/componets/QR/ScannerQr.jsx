@@ -4,7 +4,7 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 function ScannerQr() {
   const [scanResult, setScanResult] = useState(null);
   const [isScanning, setIsScanning] = useState(true); // Estado para controlar si se está escaneando o no
-
+ 
   useEffect(() => {
     if (isScanning) {
       // Verificar si se debe iniciar el escaneo

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsloading] = useState(true);
-
+ 
   const fetchData = async (url, method = "GET", formData = null) => {
     setIsloading(true);
     try {

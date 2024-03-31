@@ -1,6 +1,6 @@
 import LipsTickets from "./LipsTickets";
 import "./App.css";
-
+ 
 function App() {
   return (
     <>

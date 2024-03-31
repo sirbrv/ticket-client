@@ -35,7 +35,7 @@ const routes = [
     path: "/ventaTicket",
     element: <VentaEntrada title={"Venta de Entradas"} />,
   },
-  {
+  { 
     path: "/ticketsVendido",
     element: <TicketsVendido title={"Gestión de Entradas Vendidas"} />,
   },

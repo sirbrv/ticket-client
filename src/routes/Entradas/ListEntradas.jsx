@@ -319,7 +319,6 @@ export default function ListEntrada({ title }) {
           <>
             <h1 className="my-3">Gestión de Entradas</h1>
             <div className="tittle-search">
-              {/* <div className="tittle">{title}</div> */}
               <div className="search">
                 <Buscador
                   filters={filters}

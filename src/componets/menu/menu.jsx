@@ -40,7 +40,7 @@ function Menu({ isVisible }) {
       route: "/",
       subItems: [],
     },
-    {
+    { 
       title: "Usuários",
       subItems: [{ title: "Perfíl", route: "/perfil" }],
     },

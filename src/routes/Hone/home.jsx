@@ -3,7 +3,7 @@ import React from "react";
 // import MainSection from "./MainSection";
 // import CardCourse from "./CardCourse";
 import Contact from "../Contacts/Contact";
-
+  
 const Home = () => {
   return (
     <>

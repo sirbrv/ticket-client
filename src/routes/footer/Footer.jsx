@@ -6,7 +6,7 @@ import { BsTelephone } from "react-icons/bs";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { PiMapPinLine } from "react-icons/pi";
 import "./footer.css";
-
+ 
 export default function Footer() {
   return (
     <>

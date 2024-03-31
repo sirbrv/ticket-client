@@ -3,7 +3,7 @@ import React, { createContext, useContext, useRef, useState } from "react";
 const AppContext = createContext();
 export const useAppContext = () => {
   return useContext(AppContext);
-};
+}; 
 export const AppContextProvider = ({ children }) => {
   const HandleNivelClose = async () => {
     const miModal = document.getElementById("modalDos");

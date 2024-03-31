@@ -228,7 +228,7 @@ export default function ListStudent({ title }) {
                       <th scope="col" colSpan={3}>
                         Acción
                       </th>
-                    </tr>
+                    </tr> 
                   </thead>
                   <tbody>
                     {data?.status === 500 ? (

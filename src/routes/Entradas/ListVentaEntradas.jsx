@@ -110,7 +110,7 @@ export default function ListEntrada({ title }) {
         <h3 className="mt-5">Cargando...</h3>
       ) : (
         selectedItems && (
-          <>
+          <> 
             <div className="marco">
               <h1 className="my-3">Gestión de Entradas Vendídas</h1>
               <div className="tittle-search">

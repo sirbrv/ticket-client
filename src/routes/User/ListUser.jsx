@@ -95,7 +95,7 @@ export default function ListUser() {
     const url = `${hostServer}/api/users`;
     const result = await getData(url);
   };
-
+  
   useEffect(() => {
     if (data?.message || data?.message != undefined) {
       Swal.fire(data?.message);
@@ -111,7 +111,7 @@ export default function ListUser() {
       {isLoading ? (
         <h3 className="mt-5">Cargando...</h3>
       ) : (
-        // ) : error ? (
+        // ) : error ? ( 
         //   <h3>Error de comunicación con el Servidor...</h3>
         selectedItems && (
           <div className="marco">

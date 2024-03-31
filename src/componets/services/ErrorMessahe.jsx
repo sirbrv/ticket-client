@@ -9,7 +9,7 @@ function ErrorMessage({ message, onDismiss }) {
         Dismiss
       </button>
     </div>
-  );
+  ); 
 }
 
 export default ErrorMessage;

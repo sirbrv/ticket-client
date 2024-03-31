@@ -6,7 +6,7 @@ const validationSchema = {
       value.length < 8 ? "El DNI debe tener almenos 8 caracteres" : undefined,
     (value) =>
       value.match("^[0-9]+$") === null ? "Solo se admiten números" : undefined,
-  ],
+  ], 
   nombre: [
     (value) => (value.trim() === "" ? "El Nombre es requerído" : undefined),
     (value) =>
