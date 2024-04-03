@@ -3,13 +3,12 @@ import { ImPrevious2 } from "react-icons/im";
 import { ImNext2 } from "react-icons/im";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { TbPlayerTrackPrevFilled } from "react-icons/tb";
- 
+
 const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
   const [pageSize, setPageSize] = useState(pagItems);
   const [currentPage, setCurrentPage] = useState(page);
   let firstPage = 1;
   let botonSeleccionado = null;
-
   const listItems = [];
   if (!items) {
     return;

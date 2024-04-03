@@ -54,12 +54,12 @@ function Menu({ isVisible }) {
     {
       title: "Administración",
       subItems: [
-        { title: "Gestión de Academias", route: "/academias" },
-        { title: "Gestión de Estudiante", route: "/students" },
-        { title: "Gestión de Eventos", route: "/events" },
-        { title: "Gestión de Entradas", route: "/tickets" },
-        { title: "Gestión de Entradas Vendídas", route: "/ticketsVendido" },
-        { title: "Gestión de Usuários", route: "/users" },
+        { title: "Academias", route: "/academias" },
+        { title: "Estudiante", route: "/students" },
+        { title: "Eventos", route: "/events" },
+        { title: "Entradas", route: "/tickets" },
+        { title: "Entradas Vendídas", route: "/ticketsVendido" },
+        { title: "Usuários", route: "/users" },
         { title: "Contactos", route: "/contact" },
       ],
     },

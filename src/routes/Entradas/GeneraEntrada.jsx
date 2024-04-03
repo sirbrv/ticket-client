@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 
 export default function GeneraEntrada({ entrada, edit, riviewList }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/ticketGen`;
+  const api = `${hostServer}/api/v2/ticketGen`;
   const { HandleNivelClose } = useAppContext();
   const [academys, setAcademys] = useState([]);
   const [eventos, setEventos] = useState([]);
@@ -24,7 +24,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     id: entrada ? entrada.id : "",
     academia: entrada ? entrada.academia : "",
     evento: entrada ? entrada.evento : "",
-    correlativo: entrada ? entrada.correlativo : "",
+    // correlativo: entrada ? entrada.correlativo : "",
     inicial: entrada ? entrada.inicial : "",
     final: entrada ? entrada.final : "",
     tipoEntrada: entrada ? entrada.tipoEntrada : "",
@@ -39,7 +39,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     id,
     academia,
     evento,
-    correlativo,
+    // correlativo,
     inicial,
     final,
     costo,
@@ -78,12 +78,12 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
   };
 
   const getInitData = async () => {
-    let url = `${hostServer}/api/academys`;
+    let url = `${hostServer}/api/v2/academys`;
     let result = await getData(url);
     if (result) {
       setAcademys(result.data.data);
     }
-     url = `${hostServer}/api/events`;
+     url = `${hostServer}/api/v2/events`;
     result = await getData(url);
     if (result) {
       setEventos(result.data.data);
@@ -189,7 +189,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
               </div>
 
               <div className="row mt-3">
-                <div className="form-group col-md-2">
+                {/* <div className="form-group col-md-2">
                   <label htmlFor="correlativo">Prefíjo </label>
                   <input
                     type="text"
@@ -202,9 +202,9 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
                   {errorsInput.correlativo && (
                     <ValidateErrors errors={errorsInput.correlativo} />
                   )}
-                </div>
+                </div> */}
 
-                <div className="form-group col-md-5">
+                <div className="form-group col-md-6">
                   <label htmlFor="inicial">Número Inicial </label>
                   <input
                     type="text"
@@ -219,7 +219,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
                   )}{" "}
                 </div>
 
-                <div className="form-group col-md-5">
+                <div className="form-group col-md-6">
                   <label htmlFor="text">Número Final</label>
                   <input
                     type="text"

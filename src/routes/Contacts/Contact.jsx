@@ -1,26 +1,28 @@
 import { useState, useEffect, useRef } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
+import { useAppContext } from "../../hooks/appContext";
 
 import Swal from "sweetalert2";
 import ValidateErrors from "../../componets/services/ValidateErrors";
 import validationSchema from "../../componets/services/validationSchema";
 
 export default function Contact({ contact, edit, riviewList }) {
+  const { HandleNivelClose } = useAppContext();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/contact`;
+  const api = `${hostServer}/api/v2/contact`;
   const [error, setError] = useState(false);
   const initialForm = {
     id: contact ? contact.id : "",
     nombre: contact ? contact.nombre : "",
     email: contact ? contact.email : "",
-    descripcion: contact ? contact.message : "",
+    comentario: contact ? contact.comentario : "",
   };
 
   const { formData, onInputChange, validateForm, errorsInput, clearForm } =
     useForm(initialForm, validationSchema);
 
-  const { id, nombre, email, message } = formData;
+  const { id, nombre, email, comentario } = formData;
 
   let {
     data,
@@ -63,27 +65,21 @@ export default function Contact({ contact, edit, riviewList }) {
           timer: 3500,
         });
     } else {
-      if (data?.status === 200 || data?.status === 201) {
-        data?.data.message &&
-          Swal.fire({
-            position: "top",
-            icon: "success",
-            title: data?.data?.message,
-            showConfirmButton: false,
-            timer: 3500,
-          });
-      } else {
-        data?.data.message &&
-          Swal.fire({
-            position: "top",
-            icon: "warning",
-            title: data?.data?.message,
-            showConfirmButton: false,
-            timer: 3500,
-          });
+      data?.data.message &&
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: data?.data?.message,
+          showConfirmButton: false,
+          timer: 3500,
+        });
+      if (data?.status === 200) {
+        HandleNivelClose();
+        riviewList();
       }
       if (data?.status === 201) {
         clearForm();
+        riviewList();
       }
     }
   }, [data]);
@@ -94,9 +90,9 @@ export default function Contact({ contact, edit, riviewList }) {
         errorMessage()
       ) : (
         <>
-          <div className="container">
-            <h3 className="my-4">Contacto</h3>
-            <form onSubmit={handleSubmit} className="contact">
+          <div className="container p-5">
+            {/* <h3 className="my-4">Contacto</h3> */}
+            <form className="">
               <div className="row  mt-4">
                 <div className="col-md-6 col-12">
                   <div className="form-group">
@@ -106,6 +102,7 @@ export default function Contact({ contact, edit, riviewList }) {
                       className="form-control"
                       name="nombre"
                       placeholder="Ingrese Nombres Completo"
+                      disabled={edit ? true : false}
                       value={nombre}
                       onChange={onInputChange}
                     />
@@ -123,6 +120,7 @@ export default function Contact({ contact, edit, riviewList }) {
                       name="email"
                       placeholder="Ingrese el Coreo Electónico"
                       value={email}
+                      disabled={edit ? true : false}
                       onChange={onInputChange}
                     />
                     {errorsInput.email && (
@@ -135,13 +133,14 @@ export default function Contact({ contact, edit, riviewList }) {
               <div className="row mt-3">
                 <div className="col-md-12 col-12">
                   <div className="form-group">
-                    <label htmlFor="message">Dejanos tu Comentários</label>
+                    <label htmlFor="comentario">Dejanos tu Comentários</label>
                     <textarea
                       className="form-control"
                       rows={5}
-                      name="message"
+                      name="comentario"
                       placeholder="Escriba su mensaje"
-                      value={message}
+                      value={comentario}
+                      disabled={edit ? true : false}
                       onChange={onInputChange}
                     />
                   </div>
@@ -152,12 +151,19 @@ export default function Contact({ contact, edit, riviewList }) {
                 <div className="col-md-12">
                   <div className="btn-submit">
                     {edit ? (
-                      <button type="submit" className="btn btn-secondary">
+                      <button
+                        onClick={handleSubmit}
+                        className="btn btn-primary w-100"
+                      >
                         Actualizar
                       </button>
                     ) : (
-                      <button type="submit" className="btn btn-success">
-                        Enviar
+                      <button
+                        onClick={handleSubmit}
+                        type="submit"
+                        className="btn btn-success w-100"
+                      >
+                        Agregar
                       </button>
                     )}
                   </div>

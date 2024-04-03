@@ -14,7 +14,7 @@ import { IoMdAdd } from "react-icons/io";
 export default function ListUser() {
   AccessProfil();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/users`;
+  const api = `${hostServer}/api/v2/users`;
   const ref = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [error, setError] = useState(false);
@@ -56,7 +56,7 @@ export default function ListUser() {
   };
 
   const handleDel = async (id) => {
-    const url = `${hostServer}/api/user`;
+    const url = `${hostServer}/api/v2/user`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -92,10 +92,10 @@ export default function ListUser() {
   };
 
   const getUsers = async () => {
-    const url = `${hostServer}/api/users`;
+    const url = `${hostServer}/api/v2/users`;
     const result = await getData(url);
   };
-  
+
   useEffect(() => {
     if (data?.message || data?.message != undefined) {
       Swal.fire(data?.message);
@@ -111,7 +111,7 @@ export default function ListUser() {
       {isLoading ? (
         <h3 className="mt-5">Cargando...</h3>
       ) : (
-        // ) : error ? ( 
+        // ) : error ? (
         //   <h3>Error de comunicación con el Servidor...</h3>
         selectedItems && (
           <div className="marco">
@@ -128,57 +128,59 @@ export default function ListUser() {
                 <IoMdAdd />
               </button>
             </div>
-
-            <table className="table table-striped table-bordered">
-              <thead>
-                <tr className="table-dark">
-                  <th scope="col">#</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Correo Electrónico</th>
-                  <th scope="col">Ciudad</th>
-                  <th scope="col" colSpan={3}>
-                    Acción
-                  </th>
-                </tr>
-              </thead>
-              {data?.status === 500 ? (
-                <tbody>
-                  <tr>
-                    <td scope="col" colSpan={7}>
-                      <h3 className="textCenter">
-                        No hay información para esta Entidad.
-                      </h3>
-                    </td>
+            <div className="table-responsive">
+              <table className="table table-striped table-bordered">
+                <thead>
+                  <tr className="table-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Correo Electrónico</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col" colSpan={3}>
+                      Acción
+                    </th>
                   </tr>
-                </tbody>
-              ) : (
-                <tbody>
-                  {selectedItems.map((user) => {
-                    return (
-                      <tr key={user.id}>
-                        <td>{user.id}</td>
-                        <td>{`${user.nombre} ${user.apellido}`} </td>
-                        <td>{user.email}</td>
-                        <td>{user.city}</td>
-                        <td>
-                          <TbEdit
-                            className=".btnShow"
-                            style={{ fontSize: "25px" }}
-                            onClick={() => handleEdit(user)}
-                          />
-                        </td>
-                        <td>
-                          <FaTrashAlt
-                            style={{ fontSize: "25px" }}
-                            onClick={() => handleDel(user.id)}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              )}
-            </table>
+                </thead>
+                {data?.status === 500 ? (
+                  <tbody>
+                    <tr>
+                      <td scope="col" colSpan={7}>
+                        <h3 className="textCenter">
+                          No hay información para esta Entidad.
+                        </h3>
+                      </td>
+                    </tr>
+                  </tbody>
+                ) : (
+                  <tbody>
+                    {selectedItems.map((user) => {
+                      return (
+                        <tr key={user.id}>
+                          <td>{user.id}</td>
+                          <td>{`${user.nombre} ${user.apellido}`} </td>
+                          <td>{user.email}</td>
+                          <td>{user.city}</td>
+                          <td>
+                            <TbEdit
+                              className=".btnShow"
+                              style={{ fontSize: "25px" }}
+                              onClick={() => handleEdit(user)}
+                            />
+                          </td>
+                          <td>
+                            <FaTrashAlt
+                              style={{ fontSize: "25px" }}
+                              onClick={() => handleDel(user.id)}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                )}
+              </table>
+            </div>
+
             {data?.data?.data && (
               <Pagination
                 items={data.data.data}

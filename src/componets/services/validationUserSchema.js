@@ -31,6 +31,16 @@ const validationSchema = {
   password: [
     (value) => (value === "" ? "La contraseña es requerido" : undefined),
   ],
+  confirmPassword: [
+    (value) =>
+      value === ""
+        ? "La confirmación de la contraseña es requerido"
+        : undefined,
+    // (value) =>
+    //   value != password
+    //     ? "La confirmación de la contraseña debe ser igual a la contraseña"
+    //     : undefined,
+  ],
   descripcion: [
     (value) =>
       value.trim() === ""
@@ -50,17 +60,6 @@ const validationSchema = {
     //     ? "Solo se admiten números de celulares"
     //     : undefined,
   ],
-
-  // confirmPassword: [
-  //   (value) =>
-  //     value === ""
-  //       ? "La confirmación de la contraseña es requerido"
-  //       : undefined,
-  //   (value) =>
-  //     value != initialForm.password
-  //       ? "La confirmación de la contraseña debe ser igual a la contraseña"
-  //       : undefined,
-  // ],
 };
 
 export default validationSchema;

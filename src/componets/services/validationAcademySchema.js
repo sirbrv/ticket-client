@@ -6,7 +6,7 @@ const validationSchema = {
   ],
   nombre: [
     (value) => (value.trim() === "" ? "El Nombre es requerído" : undefined),
-  ], 
+  ],
   telefono: [
     (value) =>
       value.trim() === "" ? "El número de teléfono es requerído" : undefined,
@@ -21,9 +21,9 @@ const validationSchema = {
       !/^\S+@\S+\.\S+$/.test(value) ? "Email no es válido" : undefined,
   ],
   url: [(value) => (value.trim() === "" ? "La URL es requerída" : undefined)],
-  ubicacion: [
-    (value) => (value.trim() === "" ? "La ubicacion es requerída" : undefined),
-  ],
+  // ubicacion: [
+  //   (value) => (value.trim() === "" ? "La ubicacion es requerída" : undefined),
+  // ],
   adress: [
     (value) =>
       value.trim() === ""

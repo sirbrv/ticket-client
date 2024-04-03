@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
  
 export default function VentaEntrada({ entrada, edit, riviewList }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/ticket`;
+  const api = `${hostServer}/api/v2/ticket`;
   const [error, setError] = useState(false); 
   const [eventos, setEventos] = useState([]);
   const inputRef = useRef(null);
@@ -78,7 +78,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
         const result = await createData(api, formData);
         /* Sección de evio de correo - se condiciona que la creación terminó bien antes de enviar */
         if (result.status === 201) {
-          const api = `${hostServer}/api/envioticket`;
+          const api = `${hostServer}/api/v2/envioticket`;
           envioCorreo(api, formData);
         }
       } else {
@@ -96,7 +96,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
   };
 
   const getInitData = async () => {
-    let url = `${hostServer}/api/events`;
+    let url = `${hostServer}/api/v2/events`;
     let result = await getData(url);
     if (result) {
       setEventos(result.data.data);
@@ -104,7 +104,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
   };
 
   const handleBlur = async () => {
-    let api = `${hostServer}/api/ticketCodigo`;
+    let api = `${hostServer}/api/v2/ticketCodigo`;
     let url = `${api}/${codigoEntrada}`;
     let result = await getData(url);
     if (result?.status === 200) {
@@ -112,7 +112,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
         result.data.data;
       let simulatedEvent = {};
 
-      if (estatus != "Asignada") {
+      if (estatus == "Asignada") {
         {
           Swal.fire({
             position: "top",
@@ -201,10 +201,10 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
           errorMessage()
         ) : (
           <>
-            <div className="container my-5 px-5">
+            <div className="container my-3 px-5">
               <h1 className="my-3">Venta de Entradas</h1>
               <form onSubmit={handleSubmit}>
-                <div className="row">
+                <div className="row mt-4">
                   <div className="form-group col-md-3">
                     <label htmlFor="text">Número de Entrada</label>
                     <input
@@ -372,12 +372,19 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                 </div>
                 <div className="btn-submit mt-5">
                   {edit ? (
-                    <button type="submit" className="btn btn-primary w-100">
+                    <button
+                      onClick={handleSubmit}
+                      className="btn btn-primary w-100"
+                    >
                       Actualizar
                     </button>
                   ) : (
-                    <button type="submit" className="btn btn-success w-100">
-                      Grabar
+                    <button
+                      onClick={handleSubmit}
+                      type="submit"
+                      className="btn btn-success w-100"
+                    >
+                      Agregar
                     </button>
                   )}
                 </div>

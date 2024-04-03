@@ -4,13 +4,13 @@ import validationSchema from "../../componets/services/validationSchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
- 
+
 import Swal from "sweetalert2";
 
 export default function Student({ student, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/student`;
+  const api = `${hostServer}/api/v2/student`;
   const [error, setError] = useState(false);
   const [histAsign, setHistAsign] = useState(false);
   const [isHistory, SetIshistory] = useState(false);
@@ -103,8 +103,12 @@ export default function Student({ student, edit, riviewList }) {
   };
 
   const getAcademys = async () => {
-    const api = `${hostServer}/api/academys`;
+    console.log("Estudiantes-----");
+    const api = `${hostServer}/api/v2/academys`;
+    console.log(api);
     const result = await getData(api);
+    console.log("sali..-----", api);
+    console.log(result);
     if (result) {
       setAcademys(result.data.data);
     }
@@ -115,13 +119,14 @@ export default function Student({ student, edit, riviewList }) {
   };
 
   const getStudenHistory = async (dni) => {
-    const url = `${hostServer}/api/studentHistoy/${dni}`;
+    const url = `${hostServer}/api/v2/studentHistoy/${dni}`;
     const result = await getData(url);
+    console.log(result);
     setHistory(result.data.data);
   };
 
   const getTickets = async () => {
-    const api = `${hostServer}/api/tickets`;
+    const api = `${hostServer}/api/v2/tickets`;
     const result = await getData(api);
     if (result) {
       setTickets(result.data.data);
@@ -248,6 +253,7 @@ export default function Student({ student, edit, riviewList }) {
     getAcademys();
     getTickets();
     if (edit) {
+      console.log(student.dni);
       getStudenHistory(student.dni);
     }
   }, []);

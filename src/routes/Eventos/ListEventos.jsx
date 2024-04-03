@@ -15,7 +15,7 @@ export default function ListEvento({ title }) {
   AccessProfil();
   const ref = useRef(null);
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const url = `${hostServer}/api/events`;
+  const url = `${hostServer}/api/v2/events`;
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
@@ -54,7 +54,7 @@ export default function ListEvento({ title }) {
   };
 
   const handleDel = async (id) => {
-    const url = `${hostServer}/api/event`;
+    const url = `${hostServer}/api/v2/event`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -90,7 +90,7 @@ export default function ListEvento({ title }) {
   };
 
   const getEventos = async () => {
-    const url = `${hostServer}/api/events`;
+    const url = `${hostServer}/api/v2/events`;
     const result = await getData(url);
   };
 
@@ -109,9 +109,9 @@ export default function ListEvento({ title }) {
       {isLoading ? (
         <h3 className="mt-5">Cargando...</h3>
       ) : (
-        selectedItems && ( 
+        selectedItems && (
           <>
-            <div className="marco"> 
+            <div className="marco">
               <h1 className="my-3">Gestión de Eventos</h1>
               <div className="tittle-search">
                 <div className="search">
@@ -125,58 +125,60 @@ export default function ListEvento({ title }) {
                   <IoMdAdd />
                 </button>
               </div>
-              <table className="table table-striped table-bordered">
-                <thead>
-                  <tr className="table-dark">
-                    <th scope="col">#</th>
-                    <th scope="col">Eventos</th>
-                    <th scope="col">ubicacion</th>
-                    <th scope="col">Costo</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col" colSpan={3}>
-                      Acción
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.status === 500 ? (
-                    <tr>
-                      <td scope="col" colSpan={12}>
-                        <h3 className="textCenter">
-                          No hay información para esta Entidad.
-                        </h3>
-                      </td>
+              <div className="table-responsive">
+                <table className="table table-striped table-bordered">
+                  <thead>
+                    <tr className="table-dark">
+                      <th scope="col">#</th>
+                      <th scope="col">Eventos</th>
+                      <th scope="col">ubicacion</th>
+                      <th scope="col">Costo</th>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Hora</th>
+                      <th scope="col" colSpan={3}>
+                        Acción
+                      </th>
                     </tr>
-                  ) : (
-                    selectedItems.map((evento) => {
-                      return (
-                        <tr key={evento.id}>
-                          <td>{evento.id}</td>
-                          <td>{evento.descripcion}</td>
-                          <td>{evento.ubicacion}</td>
-                          <td>{evento.costo}</td>
-                          <td>{evento.fecha} </td>
-                          <td>{evento.hora} </td>
-                          <td>
-                            <TbEdit
-                              className=".btnShow"
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleEdit(evento)}
-                            />
-                          </td>
-                          <td>
-                            <FaTrashAlt
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleDel(evento.id)}
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data?.status === 500 ? (
+                      <tr>
+                        <td scope="col" colSpan={12}>
+                          <h3 className="textCenter">
+                            No hay información para esta Entidad.
+                          </h3>
+                        </td>
+                      </tr>
+                    ) : (
+                      selectedItems.map((evento) => {
+                        return (
+                          <tr key={evento.id}>
+                            <td>{evento.id}</td>
+                            <td>{evento.descripcion}</td>
+                            <td>{evento.ubicacion}</td>
+                            <td>{evento.costo}</td>
+                            <td>{evento.fecha} </td>
+                            <td>{evento.hora} </td>
+                            <td>
+                              <TbEdit
+                                className=".btnShow"
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleEdit(evento)}
+                              />
+                            </td>
+                            <td>
+                              <FaTrashAlt
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleDel(evento.id)}
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>{" "}
+              </div>
               {data?.data?.data && (
                 <Pagination
                   items={data?.data?.data}

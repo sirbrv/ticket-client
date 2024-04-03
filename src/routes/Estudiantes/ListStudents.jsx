@@ -16,7 +16,7 @@ export default function ListStudent({ title }) {
   AccessProfil();
   const ref = useRef(null);
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const url = `${hostServer}/api/students`;
+  const url = `${hostServer}/api/v2/students`;
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
@@ -57,7 +57,7 @@ export default function ListStudent({ title }) {
   };
 
   const handleDel = async (id) => {
-    const url = `${hostServer}/api/student`;
+    const url = `${hostServer}/api/v2/student`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -93,7 +93,7 @@ export default function ListStudent({ title }) {
   };
 
   const getStudents = async () => {
-    const url = `${hostServer}/api/Students`;
+    const url = `${hostServer}/api/v2/Students`;
     const result = await getData(url);
   };
 
@@ -107,95 +107,6 @@ export default function ListStudent({ title }) {
     getStudents();
   }, []);
 
-  // return (
-  //   <>
-  //     {isLoading ? (
-  //       <h3 className="mt-5">Cargando...</h3>
-  //     ) : (
-  //       selectedItems && (
-  //         <>
-  //           <div className="marco">
-  //             <h1 className="my-3">Gestión de Alumnos</h1>
-  //             <div className="tittle-search">
-  //               {/* <div className="tittle">{title}</div> */}
-  //               <div className="search">
-  //                 <Buscador
-  //                   filters={filters}
-  //                   registros={data?.data?.data}
-  //                   onPageChange={handlePageChange}
-  //                 />
-  //               </div>
-  //               <button className="addBtn" onClick={handleAddstudents}>
-  //                 <IoMdAdd />
-  //               </button>
-  //             </div>
-  //             <table className="table table-striped table-bordered">
-  //               <thead>
-  //                 <tr className="table-dark">
-  //                   <th scope="col">#</th>
-  //                   <th scope="col">Academia</th>
-  //                   <th scope="col">Nombre</th>
-  //                   <th scope="col">Ent. Obligatórias</th>
-  //                   <th scope="col">Ent. Extras</th>
-  //                   <th scope="col">Saldo Deudor</th>
-  //                   <th scope="col" colSpan={3}>
-  //                     Acción
-  //                   </th>
-  //                 </tr>
-  //               </thead>
-  //               <tbody>
-  //                 {data?.status === 500 ? (
-  //                   <tr>
-  //                     <td scope="col" colSpan={12}>
-  //                       <h3 className="textCenter">
-  //                         No hay información para esta Entidad.
-  //                       </h3>
-  //                     </td>
-  //                   </tr>
-  //                 ) : (
-  //                   selectedItems.map((student) => {
-  //                     return (
-  //                       <tr key={student.id}>
-  //                         <td>{student.id}</td>
-  //                         <td>{student.academia}</td>
-  //                         <td>{student.nombre}</td>
-  //                         <td>{`${student.EntObligatorias}`} </td>
-  //                         <td>{`${student.EntExtras}`} </td>
-  //                         <td>{student.SaldoDeudor}</td>
-  //                         <td>
-  //                           <TbEdit
-  //                             className=".btnShow"
-  //                             style={{ fontSize: "25px" }}
-  //                             onClick={() => handleEdit(student)}
-  //                           />
-  //                         </td>
-  //                         <td>
-  //                           <FaTrashAlt
-  //                             style={{ fontSize: "25px" }}
-  //                             onClick={() => handleDel(student.id)}
-  //                           />
-  //                         </td>
-  //                       </tr>
-  //                     );
-  //                   })
-  //                 )}
-  //               </tbody>
-  //             </table>
-  //             {data?.data?.data && (
-  //               <Pagination
-  //                 items={data?.data?.data}
-  //                 page={page}
-  //                 pagItems={itemsPage}
-  //                 nextPage={nextPage}
-  //                 onPageChange={handlePageChange}
-  //               />
-  //             )}
-  //           </div>
-  //         </>
-  //       )
-  //     )}
-  //   </>
-  // );
   return (
     <div className="list-student-container">
       {isLoading ? (
@@ -206,68 +117,72 @@ export default function ListStudent({ title }) {
             <div className="marco">
               <h1 className="my-3">Gestión de Alumnos</h1>
               <div className="tittle-search">
-                <Buscador
-                  filters={filters}
-                  registros={data?.data?.data}
-                  onPageChange={handlePageChange}
-                />
+                <div className="search">
+                  <Buscador
+                    filters={filters}
+                    registros={data?.data?.data}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
                 <button className="addBtn" onClick={handleAddstudents}>
                   <IoMdAdd />
                 </button>
               </div>
-              <div className="table-container">
-                <table className="table table-striped table-bordered">
-                  <thead>
-                    <tr className="table-dark">
-                      <th scope="col">#</th>
-                      <th scope="col">Academia</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Ent. Obl.</th>
-                      <th scope="col">Ent. Ex.</th>
-                      <th scope="col">Saldo Deudor</th>
-                      <th scope="col" colSpan={3}>
-                        Acción
-                      </th>
-                    </tr> 
-                  </thead>
-                  <tbody>
-                    {data?.status === 500 ? (
-                      <tbody>
-                        <tr>
-                          <td scope="col" colSpan={12}>
-                            <h3 className="textCenter">
-                              No hay información para esta Entidad.
-                            </h3>
-                          </td>
-                        </tr>
-                      </tbody>
-                    ) : (
-                      selectedItems.map((student) => (
-                        <tr key={student.id}>
-                          <td>{student.id}</td>
-                          <td>{student.academia}</td>
-                          <td>{student.nombre}</td>
-                          <td>{`${student.EntObligatorias}`}</td>
-                          <td>{`${student.EntExtras}`}</td>
-                          <td>{student.SaldoDeudor}</td>
-                          <td>
-                            <TbEdit
-                              className=".btnShow"
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleEdit(student)}
-                            />
-                          </td>
-                          <td>
-                            <FaTrashAlt
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleDel(student.id)}
-                            />
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
+              <div className="table-responsive">
+                <div className="table-container">
+                  <table className="table table-striped table-bordered">
+                    <thead>
+                      <tr className="table-dark">
+                        <th scope="col">#</th>
+                        <th scope="col">Academia</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Ent. Obl.</th>
+                        <th scope="col">Ent. Ex.</th>
+                        <th scope="col">Saldo Deudor</th>
+                        <th scope="col" colSpan={3}>
+                          Acción
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data?.status === 500 ? (
+                        <tbody>
+                          <tr>
+                            <td scope="col" colSpan={12}>
+                              <h3 className="textCenter">
+                                No hay información para esta Entidad.
+                              </h3>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ) : (
+                        selectedItems.map((student) => (
+                          <tr key={student.id}>
+                            <td>{student.id}</td>
+                            <td>{student.academia}</td>
+                            <td>{student.nombre}</td>
+                            <td>{`${student.EntObligatorias}`}</td>
+                            <td>{`${student.EntExtras}`}</td>
+                            <td>{student.SaldoDeudor}</td>
+                            <td>
+                              <TbEdit
+                                className=".btnShow"
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleEdit(student)}
+                              />
+                            </td>
+                            <td>
+                              <FaTrashAlt
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleDel(student.id)}
+                              />
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
               {data?.data?.data && (
                 <Pagination

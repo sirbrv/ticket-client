@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 export default function Academia({ academia, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/academy`;
+  const api = `${hostServer}/api/v2/academy`;
   const [error, setError] = useState(false);
   const initialForm = {
     id: academia ? academia.id : "",
@@ -17,7 +17,6 @@ export default function Academia({ academia, edit, riviewList }) {
     nombre: academia ? academia.nombre : "",
     email: academia ? academia.email : "",
     telefono: academia ? academia.telefono : "",
-    ubicacion: academia ? academia.ubicacion : "",
     adress: academia ? academia.adress : "",
     url: academia ? academia.url : "",
   };
@@ -25,7 +24,7 @@ export default function Academia({ academia, edit, riviewList }) {
   const { formData, onInputChange, validateForm, errorsInput, clearForm } =
     useForm(initialForm, validationSchema);
 
-  const { id, codigo, nombre, email, adress, ubicacion, telefono, url } =
+  const { id, codigo, nombre, email, adress, telefono, url } =
     formData;
 
   let {
@@ -39,6 +38,7 @@ export default function Academia({ academia, edit, riviewList }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
+    console.log("Error....:", numError);
     if (!numError) {
       let url = `${api}`;
       if (!edit) {

@@ -4,26 +4,38 @@ import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
 
 import Swal from "sweetalert2";
+import ValidateErrors from "../../componets/services/ValidateErrors";
 import validationSchema from "../../componets/services/validationUserSchema";
 
 export default function User({ user, edit, riviewList }) {
   const { HandleNivelClose } = useAppContext();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/user`;
+  const api = `${hostServer}/api/v2/user`;
   const [error, setError] = useState(false);
+
+  const roles = [
+    { id: 1, role: "isUser", descrip: "Usuaário" },
+    { id: 2, role: "isSaler", descrip: "Vendedor" },
+    { id: 3, role: "isAdmin", descrip: "Administrador" },
+  ];
+
+  const estatus = [
+    { id: 1, descrip: "Actívo" },
+    { id: 2, descrip: "No Actívo" },
+  ];
+
   const initialForm = {
     id: user ? user.id : "",
     nombre: user ? user.nombre : "",
     apellido: user ? user.apellido : "",
     email: user ? user.email : "",
     password: user ? user.pasword : "",
-    confirmPassword: "",
-    adress: user ? user.adress : "",
-    adress2: user ? user.adress2 : "",
+    confirmPassword: user ? user.pasword : "",
+    numTelefono: user ? user.numTelefono : "",
     city: user ? user.city : "",
-    state: user ? user.state : "",
-    zip: user ? user.zip : "",
-    confirm: user ? user.confirm : false,
+    adress: user ? user.adress : "",
+    role: user ? user.role : "",
+    status: user ? user.status : "",
   };
 
   const { formData, onInputChange, validateForm, errorsInput, clearForm } =
@@ -37,11 +49,10 @@ export default function User({ user, edit, riviewList }) {
     password,
     confirmPassword,
     adress,
-    adress2,
+    numTelefono,
     city,
-    state,
-    zip,
-    confirm,
+    status,
+    role,
   } = formData;
 
   let { data, isLoading, getData, createData, updateData } = useFetch(null);
@@ -107,7 +118,7 @@ export default function User({ user, edit, riviewList }) {
           errorMessage()
         ) : (
           <div className="container p-5">
-            <form onSubmit={handleSubmit}>
+            <form>
               <div className="row">
                 <div className="form-group col-md-6">
                   <label htmlFor="nombre">Nombres </label>
@@ -121,7 +132,7 @@ export default function User({ user, edit, riviewList }) {
                   />
                   {errorsInput.nombre && (
                     <ValidateErrors errors={errorsInput.nombre} />
-                  )}{" "}
+                  )}
                 </div>
                 <div className="form-group col-md-6">
                   <label htmlFor="inputName">Apelliodos </label>
@@ -138,7 +149,7 @@ export default function User({ user, edit, riviewList }) {
                   )}
                 </div>
               </div>
-              <div className="row">
+              <div className="row mt-3">
                 <div className="form-group col-md-6">
                   <label htmlFor="email">Correo Electrónico</label>
                   <input
@@ -153,8 +164,26 @@ export default function User({ user, edit, riviewList }) {
                     <ValidateErrors errors={errorsInput.email} />
                   )}
                 </div>
+                <div className="form-group col-md-6">
+                  <label htmlFor="role">Roles</label>
+                  <select
+                    className="form-control"
+                    name="role"
+                    value={role}
+                    onChange={onInputChange}
+                  >
+                    <option>Seleccione el Role...</option>
+                    {roles.map((item) => {
+                      return (
+                        <option key={item.id} value={item.role}>
+                          {item.descrip}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
               </div>
-              <div className="row">
+              <div className="row mt-3">
                 <div className="form-group col-md-6">
                   <label htmlFor="password">Contraseña</label>
                   <input
@@ -197,19 +226,8 @@ export default function User({ user, edit, riviewList }) {
                   onChange={onInputChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="adress2">Address 2</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="adress2"
-                  placeholder="Apartment, studio, or floor"
-                  value={adress2}
-                  onChange={onInputChange}
-                />
-              </div>
-              <div className="row">
-                <div className="form-group col-md-6">
+              <div className="row mt-3">
+                <div className="form-group col-md-4">
                   <label htmlFor="city">City</label>
                   <input
                     type="text"
@@ -220,51 +238,52 @@ export default function User({ user, edit, riviewList }) {
                   />
                 </div>
                 <div className="form-group col-md-4">
-                  <label htmlFor="state">State</label>
+                  <label htmlFor="status">Condición del Usuário</label>
                   <select
-                    name="state"
+                    name="status"
                     className="form-control"
-                    value={state}
+                    value={status}
                     onChange={onInputChange}
                   >
-                    <option>Choose...</option>
-                    <option>...</option>
+                    <option>Selecciomne opción...</option>
+                    {estatus.map((item) => {
+                      return (
+                        <option key={item.id} value={item.descrip}>
+                          {item.descrip}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
-                <div className="form-group col-md-2">
-                  <label htmlFor="zip">Zip</label>
+                <div className="form-group col-md-4">
+                  <label htmlFor="numTelefono">Num. Celular</label>
                   <input
                     type="text"
                     className="form-control"
-                    name="zip"
-                    value={zip}
+                    name="numTelefono"
+                    value={numTelefono}
                     onChange={onInputChange}
                   />
                 </div>
               </div>
-              <div className="form-group">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    name="confirm"
-                    value={confirm}
-                    onChange={onInputChange}
-                  />
-                  <label className="form-check-label" htmlFor="confirm">
-                    Acepta las condiciones y términos de la empresa
-                  </label>
-                </div>
+              <div className="btn-submit mt-4">
+                {edit ? (
+                  <button
+                    onClick={handleSubmit}
+                    className="btn btn-primary w-100"
+                  >
+                    Actualizar
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSubmit}
+                    type="submit"
+                    className="btn btn-success w-100"
+                  >
+                    Agregar
+                  </button>
+                )}
               </div>
-              {edit ? (
-                <button type="submit" className="btn-segundary">
-                  Actualizar
-                </button>
-              ) : (
-                <button type="submit" className="btn-danger">
-                  Agregar
-                </button>
-              )}
             </form>
           </div>
         )

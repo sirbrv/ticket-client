@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import openModal from "../../componets/modal/OpenModal";
 import Pagination from "../../componets/services/Pagination";
 import Buscador from "../../componets/Buscador";
-import Footer from "../footer/Footer";
 import Contact from "./Contact";
 
 import Swal from "sweetalert2";
@@ -12,12 +11,12 @@ import { FaTrashAlt } from "react-icons/fa";
 import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 import { FaRegEye } from "react-icons/fa";
-
-// import "./Contact.css";
+import AccessProfil from "../../componets/services/AccessProfil";
 
 export default function ListContacts({ title, accion }) {
+  AccessProfil();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const url = `${hostServer}/api/contacts`;
+  const url = `${hostServer}/api/v2/contacts`;
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
@@ -47,8 +46,8 @@ export default function ListContacts({ title, accion }) {
       null,
       "medio",
       tittle,
-      modalNivel,
-      bgChange
+      modalNivel
+      // bgChange
     );
   }
 
@@ -65,11 +64,12 @@ export default function ListContacts({ title, accion }) {
   // }
 
   const updateList = async () => {
+    console.log("pase por aqui");
     await getContacts();
   };
 
   const handleDel = async (id) => {
-    const url = `${hostServer}/api/contact`;
+    const url = `${hostServer}/api/v2/contact`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -105,7 +105,7 @@ export default function ListContacts({ title, accion }) {
   };
 
   const getContacts = async () => {
-    const url = `${hostServer}/api/contacts`;
+    const url = `${hostServer}/api/v2/contacts`;
     const result = await getData(url);
   };
 
@@ -129,7 +129,7 @@ export default function ListContacts({ title, accion }) {
             <div className="marco">
               <h1 className="my-3">Contactos</h1>
               <div className="tittle-search">
-                <div className="search"> 
+                <div className="search">
                   <Buscador
                     filters={filters}
                     registros={data?.data?.data}
@@ -140,69 +140,72 @@ export default function ListContacts({ title, accion }) {
                   <IoMdAdd />
                 </button>
               </div>
-              <table className="table table-striped table-bordered">
-                <thead>
-                  <tr className="table-dark">
-                    <th scope="col">#</th>
-                    <th scope="col">Correo Electrónico</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col" colSpan={2}>
-                      Acción
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.status === 500 ? (
-                    <tr>
-                      <td scope="col" colSpan={7}>
-                        <h3 className="textCenter">
-                          No hay información para esta Entidad.
-                        </h3>
-                      </td>
+              <div className="table-responsive">
+                <table className="table table-striped table-bordered">
+                  <thead>
+                    <tr className="table-dark">
+                      <th scope="col">#</th>
+                      <th scope="col">Correo Electrónico</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col" colSpan={2}>
+                        Acción
+                      </th>
                     </tr>
-                  ) : (
-                    selectedItems.map((contact) => {
-                      if (accion !== "ver") {
-                        return (
-                          <tr key={contact.id}>
-                            <td>{contact.id}</td>
-                            <td>{contact.email}</td>
-                            <td>{`${contact.nombre}`} </td>
-                            <td>
-                              <TbEdit
-                                className=".btnShow"
-                                style={{ fontSize: "25px" }}
-                                onClick={() => handleEdit(contact)}
-                              />
-                            </td>
-                            <td>
-                              <FaTrashAlt
-                                style={{ fontSize: "25px" }}
-                                onClick={() => handleDel(contact.id)}
-                              />
-                            </td>
-                          </tr>
-                        );
-                      } else {
-                        return (
-                          <tr key={contact.id}>
-                            <td>{contact.id}</td>
-                            <td>{contact.email}</td>
-                            <td>{`${contact.nombre}`} </td>
-                            <td>
-                              <FaRegEye
-                                className=".btnShow"
-                                style={{ fontSize: "25px" }}
-                                onClick={() => handleVer(contact)}
-                              />
-                            </td>
-                          </tr>
-                        );
-                      }
-                    })
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data?.status === 500 ? (
+                      <tr>
+                        <td scope="col" colSpan={7}>
+                          <h3 className="textCenter">
+                            No hay información para esta Entidad.
+                          </h3>
+                        </td>
+                      </tr>
+                    ) : (
+                      selectedItems.map((contact) => {
+                        if (accion !== "ver") {
+                          return (
+                            <tr key={contact.id}>
+                              <td>{contact.id}</td>
+                              <td>{contact.email}</td>
+                              <td>{`${contact.nombre}`} </td>
+                              <td>
+                                <TbEdit
+                                  className=".btnShow"
+                                  style={{ fontSize: "25px" }}
+                                  onClick={() => handleEdit(contact)}
+                                />
+                              </td>
+                              <td>
+                                <FaTrashAlt
+                                  style={{ fontSize: "25px" }}
+                                  onClick={() => handleDel(contact.id)}
+                                />
+                              </td>
+                            </tr>
+                          );
+                        } else {
+                          return (
+                            <tr key={contact.id}>
+                              <td>{contact.id}</td>
+                              <td>{contact.email}</td>
+                              <td>{`${contact.nombre}`} </td>
+                              <td>
+                                <FaRegEye
+                                  className=".btnShow"
+                                  style={{ fontSize: "25px" }}
+                                  onClick={() => handleVer(contact)}
+                                />
+                              </td>
+                            </tr>
+                          );
+                        }
+                      })
+                    )}
+                  </tbody>
+                </table>{" "}
+              </div>
+
               {data?.data?.data && (
                 <Pagination
                   items={data.data.data}
@@ -213,7 +216,6 @@ export default function ListContacts({ title, accion }) {
                 />
               )}
             </div>
-            {/* <Footer /> */}
           </>
         )
       )}

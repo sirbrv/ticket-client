@@ -14,7 +14,7 @@ import { IoMdAdd } from "react-icons/io";
 export default function ListAcademia({ title }) {
   AccessProfil();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const url = `${hostServer}/api/academys`;
+  const url = `${hostServer}/api/v2/academys`;
   const ref = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
@@ -56,7 +56,7 @@ export default function ListAcademia({ title }) {
   };
 
   const handleDel = async (id) => {
-    const url = `${hostServer}/api/academy`;
+    const url = `${hostServer}/api/v2/academy`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -92,7 +92,7 @@ export default function ListAcademia({ title }) {
   };
 
   const getAcademias = async () => {
-    const url = `${hostServer}/api/academys`;
+    const url = `${hostServer}/api/v2/academys`;
     const result = await getData(url);
   };
 
@@ -112,11 +112,10 @@ export default function ListAcademia({ title }) {
         <h3 className="mt-5">Cargando...</h3>
       ) : (
         selectedItems && (
-          <> 
+          <>
             <div className="marco">
               <h1 className="my-3">Gestión de Academias</h1>
               <div className="tittle-search">
-                {/* <div className="tittle">{title}</div> */}
                 <div className="search">
                   <Buscador
                     filters={filters}
@@ -128,58 +127,61 @@ export default function ListAcademia({ title }) {
                   <IoMdAdd />
                 </button>
               </div>
-              <table className="table table-striped table-bordered">
-                <thead>
-                  <tr className="table-dark">
-                    <th scope="col">#</th>
-                    <th scope="col">Academia</th>
-                    <th scope="col">Ubicación</th>
-                    <th scope="col">Correo Electrónico</th>
-                    <th scope="col">Dirección</th>
-                    <th scope="col">Url</th>
-                    <th scope="col" colSpan={3}>
-                      Acción
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.status === 500 ? (
-                    <tr>
-                      <td scope="col" colSpan={12}>
-                        <h3 className="textCenter">
-                          No hay información para esta Entidad.
-                        </h3>
-                      </td>
+              <div className="table-responsive">
+                <table className="table table-striped table-bordered">
+                  <thead>
+                    <tr className="table-dark">
+                      <th scope="col">#</th>
+                      <th scope="col">Academia</th>
+                      <th scope="col">Ubicación</th>
+                      <th scope="col">Correo Electrónico</th>
+                      <th scope="col">Dirección</th>
+                      <th scope="col">Url</th>
+                      <th scope="col" colSpan={3}>
+                        Acción
+                      </th>
                     </tr>
-                  ) : (
-                    selectedItems.map((academia) => {
-                      return (
-                        <tr key={academia.id}>
-                          <td>{academia.id}</td>
-                          <td>{academia.nombre}</td>
-                          <td>{academia.telefono}</td>
-                          <td>{academia.email} </td>
-                          <td>{academia.adress} </td>
-                          <td>{academia.url}</td>
-                          <td>
-                            <TbEdit
-                              className=".btnShow"
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleEdit(academia)}
-                            />
-                          </td>
-                          <td>
-                            <FaTrashAlt
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleDel(academia.id)}
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data?.status === 500 ? (
+                      <tr>
+                        <td scope="col" colSpan={12}>
+                          <h3 className="textCenter">
+                            No hay información para esta Entidad.
+                          </h3>
+                        </td>
+                      </tr>
+                    ) : (
+                      selectedItems.map((academia) => {
+                        return (
+                          <tr key={academia.id}>
+                            <td>{academia.id}</td>
+                            <td>{academia.nombre}</td>
+                            <td>{academia.telefono}</td>
+                            <td>{academia.email} </td>
+                            <td>{academia.adress} </td>
+                            <td>{academia.url}</td>
+                            <td>
+                              <TbEdit
+                                className=".btnShow"
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleEdit(academia)}
+                              />
+                            </td>
+                            <td>
+                              <FaTrashAlt
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleDel(academia.id)}
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>{" "}
+              </div>
+
               {data?.data?.data && (
                 <Pagination
                   items={data?.data?.data}

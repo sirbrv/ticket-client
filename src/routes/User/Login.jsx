@@ -4,7 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import validationSchema from "../../componets/services/validationUserSchema";
 import ValidateErrors from "../../componets/services/ValidateErrors";
 import { useUsersContext } from "../../hooks/UsersContext";
- 
+
 import Swal from "sweetalert2";
 
 import { useFetch } from "../../hooks/useFetch";
@@ -14,7 +14,7 @@ import { useForm } from "../../hooks/useForm";
 const Login = () => {
   const navigate = useNavigate();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/user/login`;
+  const api = `${hostServer}/api/v2/user/login`;
   const { setUsersContext } = useUsersContext();
 
   const [visible, setVisible] = useState(false);
@@ -49,18 +49,19 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (data?.data[0]?.message) {
-      data?.data[0].message &&
+    if (data?.data.message) {
+      data?.data.message &&
         Swal.fire({
           position: "top",
           icon: "error",
-          title: data?.data[0].message,
+          title: data?.data.message,
           showConfirmButton: false,
           timer: 3500,
         });
     } else {
+      console.log(data);
       if (data?.status === 200) {
-        setUsersContext(data.data[0].data);
+        setUsersContext(data.data.data);
         navigate("/");
       }
       if (data?.status === 400) {

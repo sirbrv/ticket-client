@@ -6,14 +6,15 @@ import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
 
 import Swal from "sweetalert2";
- 
+
 export default function GeneraEntrada({ entrada, edit, riviewList }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/ticket`;
+  const api = `${hostServer}/api/v2/ticketVenta`;
   const { HandleNivelClose } = useAppContext();
   const [academys, setAcademys] = useState([]);
   const [eventos, setEventos] = useState([]);
   const [error, setError] = useState(false);
+  const inputRef = useRef(null);
 
   const tipoEntradas = [
     { id: 1, descrip: "General" },
@@ -28,30 +29,52 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     { id: 4, descrip: "Tickets Pagado" },
   ];
 
+  const formaPagos = [
+    { id: 1, descrip: "Total" },
+    { id: 2, descrip: "Parcial" },
+  ];
+
+  const metodoPagos = [
+    { id: 1, descrip: "Efectivo" },
+    { id: 2, descrip: "Transferencia" },
+    { id: 3, descrip: "Deposito" },
+    { id: 4, descrip: "Débito" },
+    { id: 5, descrip: "Crédito" },
+  ];
+
   const initialForm = {
     id: entrada ? entrada.id : "",
     codigoEntrada: entrada ? entrada.codigoEntrada : "",
-    academia: entrada ? entrada.academia : "",
+    // academia: entrada ? entrada.academia : "",
     evento: entrada ? entrada.evento : "",
     tipoEntrada: entrada ? entrada.tipoEntrada : "",
     costo: entrada ? entrada.costo : "",
     estatus: entrada ? entrada.estatus : "",
     responsable: entrada ? entrada.responsable : "",
+    emailComprador: entrada ? entrada.emailComprador : "",
+    nombreComprador: entrada ? entrada.nombreComprador : "",
+    montoPago: entrada ? entrada.montoPago : "",
+    metodoPago: entrada ? entrada.metodoPago : "",
+    formaPago: entrada ? entrada.formaPago : "",
     urlAcademia: entrada ? entrada.urlAcademia : "",
   };
-
   const { formData, onInputChange, validateForm, errorsInput, clearForm } =
     useForm(initialForm, validationSchema);
 
   let {
     id,
     codigoEntrada,
-    academia,
+    // academia,
     evento,
-    tipoEntrada,
+    // tipoEntrada,
     costo,
-    estatus,
+    // estatus,
+    emailComprador,
+    nombreComprador,
+    metodoPago,
     responsable,
+    montoPago,
+    formaPago,
     urlAcademia,
   } = formData;
 
@@ -61,6 +84,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     // getData,
     createData,
     updateData,
+    envioCorreo,
   } = useFetch(null);
 
   let { getData } = useFetch(null);
@@ -70,9 +94,14 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     const numError = validateForm();
     if (!numError) {
       if (!edit) {
-        await createData(api, formData);
+        const result = await createData(api, formData);
       } else {
-        await updateData(api, entrada.id, formData);
+        const result = await updateData(api, entrada.id, formData);
+        /* Sección de evio de correo - se condiciona que la creación terminó bien antes de enviar */
+        if (result.status === 200) {
+          const api = `${hostServer}/api/v2/envioticket`;
+          envioCorreo(api, formData);
+        }
       }
     } else {
       Swal.fire({
@@ -86,12 +115,12 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
   };
 
   const getInitData = async () => {
-    let url = `${hostServer}/api/academys`;
+    let url = `${hostServer}/api/v2/academys`;
     let result = await getData(url);
     if (result) {
       setAcademys(result.data.data);
     }
-    url = `${hostServer}/api/events`;
+    url = `${hostServer}/api/v2/events`;
     result = await getData(url);
     if (result) {
       setEventos(result.data.data);
@@ -152,46 +181,27 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
         error ? (
           errorMessage()
         ) : (
-          <div className="container my-5 px-5">
-            <form onSubmit={handleSubmit}>
-              <div className="row">
-                <div className="form-group col-md-4">
-                  <label htmlFor="text">Entrada</label>
+          <div className="container my-3 px-5">
+            <h1 className="my-3">Gestión de Venta de Entradas</h1>
+            <form>
+              <div className="row mt-5">
+                <div className="form-group col-md-3">
+                  <label htmlFor="text">Número de Entrada</label>
                   <input
                     type="text"
+                    ref={inputRef}
                     className="form-control"
                     name="codigoEntrada"
                     value={codigoEntrada}
                     onChange={onInputChange}
-                    disabled
+                    // onBlur={handleBlur}
+                    disabled={edit ? true : false}
                   />
-                  {errorsInput.responsable && (
-                    <ValidateErrors errors={errorsInput.responsable} />
+                  {errorsInput.codigoEntrada && (
+                    <ValidateErrors errors={errorsInput.codigoEntrada} />
                   )}
                 </div>
-                <div className="form-group col-md-8">
-                  <label htmlFor="academia">Académia</label>
-                  <select
-                    className="form-control"
-                    name="academia"
-                    value={academia}
-                    onChange={onInputChange}
-                    disabled
-                  >
-                    <option>Seleccione la Academia...</option>
-                    {/*Listado de academys*/}
-                    {academys.map((academy) => {
-                      return (
-                        <option key={academy.id} value={academy.nombre}>
-                          {academy.nombre}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-              <div className="row mt-3">
-                <div className="form-group col-md-12">
+                <div className="form-group col-md-6">
                   <label htmlFor="evento">Evento</label>
                   <input
                     type="text"
@@ -202,76 +212,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
                     disabled
                   />
                 </div>
-              </div>
-              <div className="row mt-3">
-                <div className="form-group col-md-6">
-                  <label htmlFor="urlAcademia">URL</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="urlAcademia"
-                    value={urlAcademia}
-                    onChange={onInputChange}
-                    disabled
-                  />
-                </div>
-              </div>
-
-              <div className="row mt-3">
-                <div className="form-group col-md-6">
-                  <label htmlFor="estatus">Estátus de la Entrada</label>
-                  <select
-                    className="form-control"
-                    name="estatus"
-                    value={estatus}
-                    onChange={onInputChange}
-                  >
-                    <option>Seleccione el tipo de entrada...</option>
-                    {tipoEstatus.map((item) => {
-                      return (
-                        <option key={item.id} value={item.descrip}>
-                          {item.descrip}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-                <div className="form-group col-md-6">
-                  <label htmlFor="text">Responsable de Venta</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="responsable"
-                    // placeholder="Ingrese el ultimo número de la secuencia..."
-                    value={responsable}
-                    onChange={onInputChange}
-                  />
-                  {errorsInput.responsable && (
-                    <ValidateErrors errors={errorsInput.responsable} />
-                  )}
-                </div>
-              </div>
-              <div className="row mt-3">
-                <div className="form-group col-md-6">
-                  <label htmlFor="tipoEntrada">Tipo de Entrada</label>
-                  <select
-                    className="form-control"
-                    name="tipoEntrada"
-                    value={tipoEntrada}
-                    onChange={onInputChange}
-                    disabled
-                  >
-                    <option>Seleccione el tipo de entrada...</option>
-                    {tipoEntradas.map((item) => {
-                      return (
-                        <option key={item.id} value={item.descrip}>
-                          {item.descrip}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-                <div className="form-group col-md-6">
+                <div className="form-group col-md-3">
                   <label htmlFor="costo">Costo </label>
                   <input
                     type="text"
@@ -286,14 +227,142 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
                   )}{" "}
                 </div>
               </div>
+
+              <div className="row mt-2">
+                <div className="form-group col-md-6">
+                  <label htmlFor="text">Responsable de Venta</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="responsable"
+                    value={responsable}
+                    onChange={onInputChange}
+                    disabled
+                  />
+                  {errorsInput.responsable && (
+                    <ValidateErrors errors={errorsInput.responsable} />
+                  )}
+                </div>
+                <div className="form-group col-md-6">
+                  <label htmlFor="urlAcademia">URL de envío de Correos</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="urlAcademia"
+                    value={urlAcademia}
+                    onChange={onInputChange}
+                    disabled
+                  />
+                </div>
+              </div>
+              <div className="row mt-3">
+                <div className="form-group col-md-6">
+                  <label htmlFor="nombreComprador">Nombre del Comprador </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="nombreComprador"
+                    placeholder="Ingrese Nombre Completo..."
+                    value={nombreComprador}
+                    onChange={onInputChange}
+                  />
+                  {errorsInput.nombreComprador && (
+                    <ValidateErrors errors={errorsInput.nombreComprador} />
+                  )}
+                </div>
+                <div className="form-group col-md-6">
+                  <label htmlFor="emailComprador">
+                    Correo Electrónico del Comprador
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="emailComprador"
+                    placeholder="Ingrese el Correo Electónico.."
+                    value={emailComprador}
+                    onChange={onInputChange}
+                  />
+                  {errorsInput.emailComprador && (
+                    <ValidateErrors errors={errorsInput.emailComprador} />
+                  )}
+                </div>
+              </div>
+
+              <div className="row mt-3">
+                <div className="form-group col-md-4">
+                  <label htmlFor="metodoPago">Método de Pago</label>
+                  <select
+                    className="form-control"
+                    name="metodoPago"
+                    value={metodoPago}
+                    onChange={onInputChange}
+                  >
+                    <option>Seleccione el método de Pago...</option>
+                    {metodoPagos.map((metodo) => {
+                      return (
+                        <option key={metodo.id} value={metodo.descrip}>
+                          {metodo.descrip}
+                        </option>
+                      );
+                    })}
+                  </select>{" "}
+                  {errorsInput.metodoPago && (
+                    <ValidateErrors errors={errorsInput.metodoPago} />
+                  )}
+                </div>
+
+                <div className="form-group col-md-4">
+                  <label htmlFor="montoPago">Monto Pagado</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="montoPago"
+                    placeholder="Ingrese Nombre Completo..."
+                    value={montoPago}
+                    onChange={onInputChange}
+                  />
+                  {errorsInput.montoPago && (
+                    <ValidateErrors errors={errorsInput.montoPago} />
+                  )}
+                </div>
+
+                <div className="form-group col-md-4">
+                  <label htmlFor="formaPago">Tipo de Pago</label>
+                  <select
+                    className="form-control"
+                    name="formaPago"
+                    value={formaPago}
+                    onChange={onInputChange}
+                  >
+                    <option>Seleccione el Tipo de Pago...</option>
+                    {formaPagos.map((tipo) => {
+                      return (
+                        <option key={tipo.id} value={tipo.descrip}>
+                          {tipo.descrip}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  {errorsInput.formaPago && (
+                    <ValidateErrors errors={errorsInput.formaPago} />
+                  )}
+                </div>
+              </div>
               <div className="btn-submit mt-5">
                 {edit ? (
-                  <button type="submit" className="btn btn-primary w-100">
+                  <button
+                    onClick={handleSubmit}
+                    className="btn btn-primary w-100"
+                  >
                     Actualizar
                   </button>
                 ) : (
-                  <button type="submit" className="btn btn-success w-100">
-                    Generar Entrada
+                  <button
+                    onClick={handleSubmit}
+                    type="submit"
+                    className="btn btn-success w-100"
+                  >
+                    Agregar
                   </button>
                 )}
               </div>

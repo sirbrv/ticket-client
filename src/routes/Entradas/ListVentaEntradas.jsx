@@ -4,7 +4,7 @@ import Pagination from "../../componets/services/Pagination";
 import AccessProfil from "../../componets/services/AccessProfil";
 import Buscador from "../../componets/Buscador";
 import { useFetch } from "../../hooks/useFetch";
-import VentaEntrada from "./VentaEntrada";
+import VentaEntrada from "./GestionEntrada";
 
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -14,7 +14,7 @@ import { IoMdAdd } from "react-icons/io";
 export default function ListEntrada({ title }) {
   AccessProfil();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const url = `${hostServer}/api/ticketVentas`;
+  const url = `${hostServer}/api/v2/ticketVentas`;
   const ref = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
@@ -54,7 +54,7 @@ export default function ListEntrada({ title }) {
   };
 
   const handleDel = async (id) => {
-    const url = `${hostServer}/api/ticketVenta`;
+    const url = `${hostServer}/api/v2/ticketVenta`;
     const delId = id;
     Swal.fire({
       title: "Está Seguro?",
@@ -90,7 +90,7 @@ export default function ListEntrada({ title }) {
   };
 
   const getEntradas = async () => {
-    const url = `${hostServer}/api/ticketVentas`;
+    const url = `${hostServer}/api/v2/ticketVentas`;
     const result = await getData(url);
   };
 
@@ -110,7 +110,7 @@ export default function ListEntrada({ title }) {
         <h3 className="mt-5">Cargando...</h3>
       ) : (
         selectedItems && (
-          <> 
+          <>
             <div className="marco">
               <h1 className="my-3">Gestión de Entradas Vendídas</h1>
               <div className="tittle-search">
@@ -122,60 +122,63 @@ export default function ListEntrada({ title }) {
                   />
                 </div>
               </div>
-              <table className="table table-striped table-bordered">
-                <thead>
-                  <tr className="table-dark">
-                    <th scope="col">#</th>
-                    <th scope="col">Número de la Entrada</th>
-                    <th scope="col">Responsable de Venta</th>
-                    <th scope="col">Comprador</th>
-                    <th scope="col">Costo</th>
-                    <th scope="col">Método de Pago</th>
-                    <th scope="col">Monto Pagado</th>
-                    <th scope="col" colSpan={2}>
-                      Acción
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.status === 500 ? (
-                    <tr>
-                      <td scope="col" colSpan={12}>
-                        <h3 className="textCenter">
-                          No hay información para esta Entidad.
-                        </h3>
-                      </td>
+              <div className="table-responsive">
+                <table className="table table-striped table-bordered">
+                  <thead>
+                    <tr className="table-dark">
+                      <th scope="col">#</th>
+                      <th scope="col">Número de la Entrada</th>
+                      <th scope="col">Responsable de Venta</th>
+                      <th scope="col">Comprador</th>
+                      <th scope="col">Costo</th>
+                      <th scope="col">Método de Pago</th>
+                      <th scope="col">Monto Pagado</th>
+                      <th scope="col" colSpan={2}>
+                        Acción
+                      </th>
                     </tr>
-                  ) : (
-                    selectedItems.map((entrada) => {
-                      return (
-                        <tr key={entrada.id}>
-                          <td>{entrada.id}</td>
-                          <td>{entrada.codigoEntrada}</td>
-                          <td>{entrada.responsable}</td>
-                          <td>{entrada.nombreComprador}</td>
-                          <td>{entrada.costo}</td>
-                          <td>{entrada.metodoPago} </td>
-                          <td>{entrada.montoPago} </td>
-                          <td>
-                            <TbEdit
-                              className=".btnShow"
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleEdit(entrada)}
-                            />
-                          </td>
-                          <td>
-                            <FaTrashAlt
-                              style={{ fontSize: "25px" }}
-                              onClick={() => handleDel(entrada.id)}
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data?.status === 500 ? (
+                      <tr>
+                        <td scope="col" colSpan={12}>
+                          <h3 className="textCenter">
+                            No hay información para esta Entidad.
+                          </h3>
+                        </td>
+                      </tr>
+                    ) : (
+                      selectedItems.map((entrada) => {
+                        return (
+                          <tr key={entrada.id}>
+                            <td>{entrada.id}</td>
+                            <td>{entrada.codigoEntrada}</td>
+                            <td>{entrada.responsable}</td>
+                            <td>{entrada.nombreComprador}</td>
+                            <td>{entrada.costo}</td>
+                            <td>{entrada.metodoPago} </td>
+                            <td>{entrada.montoPago} </td>
+                            <td>
+                              <TbEdit
+                                className=".btnShow"
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleEdit(entrada)}
+                              />
+                            </td>
+                            <td>
+                              <FaTrashAlt
+                                style={{ fontSize: "25px" }}
+                                onClick={() => handleDel(entrada.id)}
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>{" "}
+              </div>
+
               {data?.data?.data && (
                 <Pagination
                   items={data?.data?.data}
