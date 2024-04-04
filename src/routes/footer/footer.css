@@ -57,9 +57,7 @@
   margin-right: 15px;
 }
 
-.ubicanos > h4 {
-  font-size: 0.7em;
-}
+
 @media (max-width: 950px) {
   .ticketFooter {
     flex-wrap: wrap;
@@ -96,6 +94,9 @@
     font-size: 0.7em;
   }
 
+  .ubicanos > h6 {
+  font-size: 2em;
+}
   .ubicacion,
   .ubicanos,
   .about {
