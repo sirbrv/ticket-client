@@ -1,8 +1,6 @@
 *************************************************************
 /* *****************         Footer       ********************** */
 /* ************************************************************* */
-/* CSS Base para todos los tamaños de pantalla */
-
 .linea {
   color: rgb(22, 163, 251);
   display: flex;
@@ -36,7 +34,7 @@
 .footer-footer p {
   margin-top: 10px;
 }
- 
+
 .ticketFooter {
   display: flex;
   background-color: rgb(48, 48, 48);
@@ -58,6 +56,10 @@
   color: rgb(20, 254, 12);
   margin-right: 15px;
 }
+
+.ticketFooter > h4 {
+  font-size: 0.7em;
+}
 @media (max-width: 950px) {
   .ticketFooter {
     flex-wrap: wrap;
@@ -77,10 +79,11 @@
     font-size: 0.8em;
   }
 
+  .icon-color,
   .phone,
   .correo {
     height: 8px;
-    font-size: medium;
+    font-size: 0.9em;
   }
 
   .footer-footer {
@@ -103,6 +106,7 @@
     font-size: 0.7em;
   }
 
+  .icon-color,
   .phone,
   .correo {
     height: 8px;

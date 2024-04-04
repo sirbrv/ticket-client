@@ -38,7 +38,6 @@ export default function Academia({ academia, edit, riviewList }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
-    console.log("Error....:", numError);
     if (!numError) {
       let url = `${api}`;
       if (!edit) {

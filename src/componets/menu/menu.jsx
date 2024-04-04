@@ -40,15 +40,11 @@ function Menu({ isVisible }) {
       route: "/",
       subItems: [],
     },
-    { 
-      title: "Usuários",
-      subItems: [{ title: "Perfíl", route: "/perfil" }],
-    },
     {
       title: "Entradas",
       subItems: [
-        { title: "Venta de Entradas", route: "/ventaTicket" },
-        { title: "Scaner de Entradas", route: "/qrTicket" },
+        { title: "Ventas", route: "/ventaTicket" },
+        { title: "Scaner", route: "/qrTicket" },
       ],
     },
     {
@@ -58,21 +54,22 @@ function Menu({ isVisible }) {
         { title: "Estudiante", route: "/students" },
         { title: "Eventos", route: "/events" },
         { title: "Entradas", route: "/tickets" },
-        { title: "Entradas Vendídas", route: "/ticketsVendido" },
+        { title: "Ticket Vendídos", route: "/ticketsVendido" },
         { title: "Usuários", route: "/users" },
         { title: "Contactos", route: "/contact" },
       ],
     },
     {
       title: "Listados",
-      subItems: [
-        { title: "Gestión Administratíva", route: "/getionAdmin" },
-      ],
+      subItems: [{ title: "Gestión Administratíva", route: "/getionAdmin" }],
     },
     {
-      title: "Exit",
-      route: "/exit",
-      subItems: [],
+      title: "Accesos",
+      subItems: [
+        { title: "Cambio de Claves", route: "/perfil" },
+        { title: "Inicio Sesión", route: "/login" },
+        { title: "Exit", route: "/exit" },
+      ],
     },
   ];
 

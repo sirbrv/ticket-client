@@ -4,11 +4,11 @@ import validationSchema from "../../componets/services/validationVentaSchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import Swal from "sweetalert2";
- 
+
 export default function VentaEntrada({ entrada, edit, riviewList }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/v2/ticket`;
-  const [error, setError] = useState(false); 
+  const [error, setError] = useState(false);
   const [eventos, setEventos] = useState([]);
   const inputRef = useRef(null);
 
@@ -108,11 +108,12 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     let url = `${api}/${codigoEntrada}`;
     let result = await getData(url);
     if (result?.status === 200) {
+      console.log("Resultado.....:", result);
       const { evento, costo, responsable, estatus, urlAcademia } =
         result.data.data;
       let simulatedEvent = {};
 
-      if (estatus == "Asignada") {
+      if (estatus !== "Asignada") {
         {
           Swal.fire({
             position: "top",

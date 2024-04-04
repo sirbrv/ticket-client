@@ -35,7 +35,6 @@ export default function Contact({ contact, edit, riviewList }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
-    console.log(formData);
     if (!numError) {
       let url = `${api}`;
       if (!edit) {
@@ -75,11 +74,9 @@ export default function Contact({ contact, edit, riviewList }) {
         });
       if (data?.status === 200) {
         HandleNivelClose();
-        riviewList();
       }
       if (data?.status === 201) {
         clearForm();
-        riviewList();
       }
     }
   }, [data]);

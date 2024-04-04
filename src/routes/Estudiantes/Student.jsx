@@ -103,12 +103,8 @@ export default function Student({ student, edit, riviewList }) {
   };
 
   const getAcademys = async () => {
-    console.log("Estudiantes-----");
     const api = `${hostServer}/api/v2/academys`;
-    console.log(api);
     const result = await getData(api);
-    console.log("sali..-----", api);
-    console.log(result);
     if (result) {
       setAcademys(result.data.data);
     }
@@ -121,7 +117,6 @@ export default function Student({ student, edit, riviewList }) {
   const getStudenHistory = async (dni) => {
     const url = `${hostServer}/api/v2/studentHistoy/${dni}`;
     const result = await getData(url);
-    console.log(result);
     setHistory(result.data.data);
   };
 
@@ -253,7 +248,6 @@ export default function Student({ student, edit, riviewList }) {
     getAcademys();
     getTickets();
     if (edit) {
-      console.log(student.dni);
       getStudenHistory(student.dni);
     }
   }, []);
