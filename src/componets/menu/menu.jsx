@@ -66,9 +66,9 @@ function Menu({ isVisible }) {
     {
       title: "Accesos",
       subItems: [
-        { title: "Cambio de Claves", route: "/perfil" },
-        { title: "Inicio Sesión", route: "/login" },
-        { title: "Exit", route: "/exit" },
+        { title: "Cámbio de Clave", route: "/perfil" },
+        { title: "Inicio de Sesión", route: "/login" },
+        { title: "Salír", route: "/exit" },
       ],
     },
   ];

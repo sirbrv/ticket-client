@@ -21,33 +21,36 @@ function LipsTickets() {
   return (
     <UsersProvider>
       <Router>
-        <header>
-          <div className="logo"></div>
-          <div className="header"></div>
-        </header>
-        <main>
-          <button className="toggleButton" onClick={toggleMenu}>
-            {isMenuVisible ? "Ocultar Menú" : "Mostrar Menú"}
-          </button>
-          <aside className={`${isMenuVisible ? "asideRigth" : "asideLeft"}`}>
-            <Menu isVisible={isVisible} />
-          </aside>
-          <section
-            className={`${
-              isMenuVisible ? "sectionContentRigth" : "sectionContentLeft"
-            }`}
-          >
-            <Routes>
-              {routes.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={route.element}
-                />
-              ))}
-            </Routes>
-          </section>
-        </main>
+        <div class="contenedor">
+          <header>
+            <div className="logo"></div>
+            <div className="header"></div>
+          </header>
+          <main>
+            <button className="toggleButton" onClick={toggleMenu}>
+              {isMenuVisible ? "Ocultar Menú" : "Mostrar Menú"}
+            </button>
+            <aside className={`${isMenuVisible ? "asideRigth" : "asideLeft"}`}>
+              <Menu isVisible={isVisible} />
+            </aside>
+            <section
+              className={`${
+                isMenuVisible ? "sectionContentRigth" : "sectionContentLeft"
+              }`}
+            >
+              <Routes>
+                {routes.map((route) => (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={route.element}
+                  />
+                ))}
+              </Routes>
+            </section>
+          </main>
+        </div>
+
         <Footer />
       </Router>
     </UsersProvider>

@@ -3,14 +3,14 @@ import React from "react";
 // import MainSection from "./MainSection";
 // import CardCourse from "./CardCourse";
 import Contact from "../Contacts/Contact";
-  
+
 const Home = () => {
   return (
     <>
-      <div className="container">
+      <div className="conteiner p-3 w-10">
         {/* <MainSection />
         <CardCourse /> */}
-        <h2 className="mt-5">Sistema de Venta de Entrrada </h2>
+        <h2 className="">Sistema de Venta de Entrrada </h2>
         <hr />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet vero
