@@ -6,7 +6,7 @@ import { BsTelephone } from "react-icons/bs";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { PiMapPinLine } from "react-icons/pi";
 import "./footer.css";
- 
+
 export default function Footer() {
   return (
     <>
@@ -16,7 +16,7 @@ export default function Footer() {
             <h4>Puntos de Contactos</h4>
             {/* <h5 className="linea">____________</h5> */}
             <div className="place">
-              <PiMapPinLine className="icon-color-ub" size="28px" />
+              <PiMapPinLine className="icon-color-ub" size="22px" />
               <p className="encuentrano">
                 <span>
                   Primer piso, Sindhu Center, Moon Market, cerca del restaurante

@@ -202,7 +202,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
           errorMessage()
         ) : (
           <>
-            <div className="container my-3 px-5">
+            <div className="container my-3 px-3">
               <h1 className="my-3">Venta de Entradas</h1>
               <form onSubmit={handleSubmit}>
                 <div className="row mt-4">
