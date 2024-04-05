@@ -23,9 +23,7 @@ export default function ListStudent({ title }) {
   let { data, isLoading, getData, deleteData } = useFetch(`${url}`);
   const filters = [
     { id: 1, nombre: "academia", descrip: "Académia" },
-    { id: 2, nombre: "apellido", descrip: "Apellido" },
-    { id: 3, nombre: "email", descrip: "Email" },
-    { id: 4, nombre: "celular", descrip: "Celular" },
+    { id: 2, nombre: "nombre", descrip: "Nombre" },
   ];
 
   function handleAddstudents() {

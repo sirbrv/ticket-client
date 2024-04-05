@@ -21,7 +21,7 @@ export default function ListEvento({ title }) {
   const [itemsPage, setItemsPage] = useState(8);
   let { data, isLoading, getData, deleteData } = useFetch(`${url}`);
   const filters = [
-    { id: 1, nombre: "evento", descrip: "Avento" },
+    { id: 1, nombre: "evento", descrip: "Evento" },
     { id: 2, nombre: "ubicacion", descrip: "Ubicación" },
   ];
 

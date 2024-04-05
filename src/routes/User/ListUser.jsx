@@ -24,7 +24,8 @@ export default function ListUser() {
 
   const filters = [
     { id: 1, nombre: "Dni", descrip: "Dni" },
-    { id: 2, nombre: "Nombre", descrip: "Nombre" },
+    { id: 2, nombre: "nombre", descrip: "Nombre" },
+    { id: 3, nombre: "email", descrip: "Emáil" },
   ];
 
   function handleAddUsers() {

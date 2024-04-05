@@ -25,7 +25,7 @@ export default function ListEntrada({ title }) {
   const filters = [
     { id: 1, nombre: "entrada", descrip: "Entrada" },
     { id: 2, nombre: "tipoEntrada", descrip: "Tipo de Entrada" },
-    { id: 3, nombre: "academia", descrip: "Academia" },
+    { id: 3, nombre: "responsable", descrip: "Responsable" },
   ];
 
   function handleAddEntradas() {
