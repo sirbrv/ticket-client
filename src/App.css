@@ -63,7 +63,7 @@ label {
 }
 
 .sectionContentRigth {
-  width: 80%; 
+  width: 80%;
   /* margin-left: 20%; Deja espacio para el menú cuando está visible */
   transition: width 0.3s ease, margin-rigth 0.3s ease; /* Agrega transiciones suaves */
   margin-bottom: 100px;
@@ -72,7 +72,7 @@ label {
 .toggleButton {
   position: absolute;
   top: 10px;
-  left: 3%; /* Posición del botón de alternancia */
+  left: 1%; /* Posición del botón de alternancia */
   background-color: #333; /* Color del botón de alternancia */
   color: #fff; /* Color del icono o texto del botón de alternancia */
   border: none;

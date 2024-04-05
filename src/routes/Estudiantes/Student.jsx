@@ -261,7 +261,7 @@ export default function Student({ student, edit, riviewList }) {
         error ? (
           errorMessage()
         ) : (
-          <div className="container my-5 px-5">
+          <div className="container my-5 px-4">
             <form>
               <div className="row">
                 <div className="form-group col-md-4">
@@ -538,40 +538,42 @@ export default function Student({ student, edit, riviewList }) {
         )
       }
       {!histAsign && (
-        <div className="container  px-5">
+        <div className="container  px-3">
           <h4> Histórico de Asignaciones</h4>
-          <table className="table table-striped table-bordered">
-            <thead>
-              <tr className="table-dark">
-                <th scope="col">Entrada</th>
-                <th scope="col">Evento</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Estátus</th>
-                <th scope="col">Consto</th>
-                <th scope="col">Abono</th>
-              </tr>
-            </thead>
-            <tbody>
-              {!history ? (
-                <tr>
-                  <td scope="col" colSpan={12}>
-                    <h3 className="textCenter">No tiene Asignaciones.</h3>
-                  </td>
+          <div className="table-responsive">
+            <table className="table table-striped table-bordered">
+              <thead>
+                <tr className="table-dark">
+                  <th scope="col">Entrada</th>
+                  <th scope="col">Evento</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Estátus</th>
+                  <th scope="col">Consto</th>
+                  <th scope="col">Abono</th>
                 </tr>
-              ) : (
-                history.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.codigoEntrada}</td>
-                    <td>{item.evento}</td>
-                    <td>{item.tipoTicket}</td>
-                    <td>{item.statusProceso}</td>
-                    <td>{item.costo}</td>
-                    <td>{item.montoPagado}</td>
+              </thead>
+              <tbody>
+                {!history ? (
+                  <tr>
+                    <td scope="col" colSpan={12}>
+                      <h3 className="textCenter">No tiene Asignaciones.</h3>
+                    </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  history.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.codigoEntrada}</td>
+                      <td>{item.evento}</td>
+                      <td>{item.tipoTicket}</td>
+                      <td>{item.statusProceso}</td>
+                      <td>{item.costo}</td>
+                      <td>{item.montoPagado}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </>

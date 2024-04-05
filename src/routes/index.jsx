@@ -8,6 +8,7 @@ import Events from "./Eventos/ListEventos";
 import Users from "./User/ListUser";
 import VentaEntrada from "./Entradas/VentaEntrada";
 import TicketsVendido from "./Entradas/ListVentaEntradas";
+import GetionAdmin from './Administrativo/ListGestionAdmin'
 import Login from "./User/Login";
 import Exit from "../componets/exit/Exit";
 
@@ -35,7 +36,7 @@ const routes = [
     path: "/ventaTicket",
     element: <VentaEntrada title={"Venta de Entradas"} />,
   },
-  { 
+  {
     path: "/ticketsVendido",
     element: <TicketsVendido title={"Gestión de Entradas Vendidas"} />,
   },
@@ -47,6 +48,10 @@ const routes = [
     path: "/qrTicket",
     // element: <ReadScanner title={"Escaneo de Entradas"} accion={"ver"} />,
     element: <ReadScanner title={"Escaneo de Entradas"} />,
+  },
+  {
+    path: "/getionAdmin",
+    element: <GetionAdmin title={"Escaneo de Entradas"} />,
   },
   {
     path: "/contact",
