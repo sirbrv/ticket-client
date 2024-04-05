@@ -21,10 +21,10 @@ export default function ListAcademia({ title }) {
   const [itemsPage, setItemsPage] = useState(8);
   let { data, isLoading, getData, deleteData } = useFetch(`${url}`);
   const filters = [
-    { id: 1, nombre: "academia", descrip: "Académia" },
-    { id: 2, nombre: "apellido", descrip: "Apellido" },
+    { id: 1, nombre: "nombre", descrip: "Nombre" },
+    { id: 2, nombre: "telefono", descrip: "Teléfono" },
     { id: 3, nombre: "email", descrip: "Email" },
-    { id: 4, nombre: "celular", descrip: "Celular" },
+    { id: 4, nombre: "adress", descrip: "Dirección" },
   ];
 
   function handleAddAcademias() {
@@ -132,8 +132,8 @@ export default function ListAcademia({ title }) {
                   <thead>
                     <tr className="table-dark">
                       <th scope="col">#</th>
-                      <th scope="col">Academia</th>
-                      <th scope="col">Ubicación</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Teléfono</th>
                       <th scope="col">Correo Electrónico</th>
                       <th scope="col">Dirección</th>
                       <th scope="col">Url</th>

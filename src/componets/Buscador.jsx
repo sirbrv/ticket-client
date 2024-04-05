@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import "./search.css";
- 
+
 const Buscador = ({ filters, registros, onPageChange }) => {
-  console.log();
   const [campo, setCampo] = useState("");
   const [filtro, setFiltro] = useState("");
   const handleCampoChange = (e) => {
     setCampo(e.target.value);
+    setFiltro("");
   };
 
   const handleFiltroChange = (e) => {
@@ -20,7 +20,10 @@ const Buscador = ({ filters, registros, onPageChange }) => {
       onPageChange(registros);
       return;
     }
+    ejecFiltro();
+  };
 
+  const ejecFiltro = () => {
     const resultadosFiltrados = registros.filter((registro) => {
       if (registro[campo]) {
         const turnoBuscadoLower = filtro.toLowerCase();
@@ -30,6 +33,10 @@ const Buscador = ({ filters, registros, onPageChange }) => {
     onPageChange(resultadosFiltrados);
   };
   useEffect(() => {
+    ejecFiltro();
+  }, [filtro]);
+
+  useEffect(() => {
     if (filters[0].nombre) {
       setCampo(filters[0].nombre);
     }
@@ -37,13 +44,13 @@ const Buscador = ({ filters, registros, onPageChange }) => {
 
   return (
     <div className="form-group  ">
-      <form onSubmit={handleSubmit} className="form-search">
+      <form className="form-search">
         <div className="input-search">
           <label htmlFor="campo" className="campo-search">
             Filtros :
           </label>
           <select
-            id="campo"
+            name="campo"
             value={campo}
             className="filter-search"
             onChange={handleCampoChange}
@@ -58,14 +65,14 @@ const Buscador = ({ filters, registros, onPageChange }) => {
           <input
             type="text"
             className="form-control text-search"
-            id="filtro"
+            name="filtro"
             value={filtro}
             onChange={handleFiltroChange}
           />
         </div>
-        {/* <button type="submit" className="button-search">
+        <button type="submit" onClick={handleSubmit} className="button-search">
           <FaSearch />
-        </button> */}
+        </button>
       </form>
     </div>
   );

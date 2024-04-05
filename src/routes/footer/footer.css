@@ -89,12 +89,15 @@
 }
 /* Consulta de medios para dispositivos móviles */
 @media (max-width: 600px) {
+  footer {
+    font-size: 14px;
+  }
   .ticketFooter {
     font-size: 0.7em;
   }
 
   .ubicanos > h6 {
-    font-size: 2em;
+    font-size: 1em;
   }
   .ubicacion,
   .ubicanos,
@@ -110,6 +113,6 @@
   .phone,
   .correo {
     height: 8px;
-    font-size: 2em;
+    font-size: 1em;
   }
 }
