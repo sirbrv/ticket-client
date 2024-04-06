@@ -1,10 +1,10 @@
-import React from "react";
 import { SlSocialInstagram } from "react-icons/sl";
 import { ImWhatsapp } from "react-icons/im";
 import { TfiEmail } from "react-icons/tfi";
 import { BsTelephone } from "react-icons/bs";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
-import { PiMapPinLine } from "react-icons/pi";
+import { MdPlace } from "react-icons/md";
+import { MdOutlinePlace } from "react-icons/md";
 import "./footer.css";
 
 export default function Footer() {
@@ -13,29 +13,27 @@ export default function Footer() {
       <footer>
         <section className="ticketFooter">
           <div className="ubicacion">
-            <h4>Puntos de Contactos</h4>
+            <h4 className="footer-text">Puntos de Contactos</h4>
             {/* <h5 className="linea">____________</h5> */}
             <div className="place">
-              <PiMapPinLine className="icon-color-ub" size="22px" />
-              <p className="encuentrano">
-                <span>
-                  Primer piso, Sindhu Center, Moon Market, cerca del restaurante
-                  Bundu Khan, Allama Iqbal Town, Lahore
-                </span>
-              </p>
+              <MdOutlinePlace className="icon-color" size={25} />
+              <h6 className="adress">
+                Calle Nuevo Mundo, # 12321, sector Las Flores, Montevideo,
+                Uruguay.
+              </h6>
             </div>
 
-            <p className="phone">
-              <BsTelephone className="icon-color-ub" size="18px" />
+            <h6 className="phone">
+              <BsTelephone className="icon-color" />
               +598 543234543
-            </p>
-            <p className="correo">
-              <MdOutlineMarkEmailRead className="icon-color-ub" size="18px" />
+            </h6>
+            <h6 className="correo">
+              <MdOutlineMarkEmailRead className="icon-color" />
               info@academy.com
-            </p>
+            </h6>
           </div>
           <div className="about">
-            <h4>About</h4>
+            <h4 className="footer-text">About</h4>
             {/* <h5 className="linea">_____________</h5> */}
             <p>
               Estamos aquí para la comunidad. La misión es hacer que la
@@ -45,16 +43,19 @@ export default function Footer() {
             </p>
           </div>
           <div className="ubicanos">
-            <h4>Redes Sociales</h4>
+            <h4 className="footer-text">Redes Sociales</h4>
             {/* <h5 className="linea">_________________</h5> */}
             <h6>
-              <ImWhatsapp className="icon-color" /> WhatSapp
+              <ImWhatsapp className="icon-color" />
+              WhatSapp
             </h6>
             <h6>
-              <SlSocialInstagram className="icon-color" /> Instagram
+              <SlSocialInstagram className="icon-color" />
+              Instagram
             </h6>
             <h6>
-              <TfiEmail className="icon-color" /> Correo Electrónico
+              <TfiEmail className="icon-color" />
+              Correo Electrónico
             </h6>
           </div>
         </section>

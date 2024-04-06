@@ -15,7 +15,6 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
   const [eventos, setEventos] = useState([]);
   const [error, setError] = useState(false);
   const inputRef = useRef(null);
-  AccessProfil();
   
   const tipoEntradas = [
     { id: 1, descrip: "General" },
