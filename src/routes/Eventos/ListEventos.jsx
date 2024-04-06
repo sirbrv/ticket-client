@@ -12,13 +12,12 @@ import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 
 export default function ListEvento({ title }) {
-  AccessProfil();
-  const ref = useRef(null);
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const url = `${hostServer}/api/v2/events`;
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
+  AccessProfil();
   let { data, isLoading, getData, deleteData } = useFetch(`${url}`);
   const filters = [
     { id: 1, nombre: "evento", descrip: "Evento" },

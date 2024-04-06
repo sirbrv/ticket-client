@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
-
+import AccessProfil from "../services/AccessProfil";
 function ScannerQr() {
+  AccessProfil("isVerify");
   const [scanResult, setScanResult] = useState(null);
   const [isScanning, setIsScanning] = useState(true); // Estado para controlar si se está escaneando o no
- 
+
   useEffect(() => {
     if (isScanning) {
       // Verificar si se debe iniciar el escaneo

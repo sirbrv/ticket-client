@@ -9,18 +9,15 @@ import Buscador from "../../componets/Buscador";
 import Swal from "sweetalert2";
 import { useFetch } from "../../hooks/useFetch";
 import { useState } from "react";
-import { FaTrashAlt } from "react-icons/fa";
-import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 
 export default function ListGestionAdmin({ title }) {
-  AccessProfil();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const url = `${hostServer}/api/v2/gestionVentas`;
-  const ref = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
+  AccessProfil();
   let { data, isLoading, getData, deleteData } = useFetch(`${url}`);
   const filters = [{ id: 1, nombre: "nombre", descrip: "Nombre del Alumno" }];
 

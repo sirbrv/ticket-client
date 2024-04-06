@@ -5,7 +5,7 @@
 .menuItem {
   margin-bottom: 5px;
 }
- 
+
 .menuItemTitle {
   cursor: pointer;
   background-color: #f0f0f0;
@@ -39,4 +39,10 @@
 
 .submenuItem:hover {
   background-color: #d0d0d0;
+}
+
+@media (max-width: 650px) {
+  .menu {
+    font-size: 8px;
+  }
 }

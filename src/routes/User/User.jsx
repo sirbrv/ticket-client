@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
-
 import Swal from "sweetalert2";
 import ValidateErrors from "../../componets/services/ValidateErrors";
 import validationSchema from "../../componets/services/validationUserSchema";
@@ -14,7 +13,7 @@ export default function User({ user, edit, riviewList }) {
   const [error, setError] = useState(false);
 
   const roles = [
-    { id: 1, role: "isUser", descrip: "Usuaário" },
+    { id: 1, role: "isVerify", descrip: "Verificador" },
     { id: 2, role: "isSaler", descrip: "Vendedor" },
     { id: 3, role: "isAdmin", descrip: "Administrador" },
   ];
@@ -188,6 +187,7 @@ export default function User({ user, edit, riviewList }) {
                   <label htmlFor="password">Contraseña</label>
                   <input
                     type="password"
+                    autoComplete="on"
                     className="form-control"
                     name="password"
                     placeholder="Indique su contraseña"
@@ -203,8 +203,9 @@ export default function User({ user, edit, riviewList }) {
                     Confirmación de Contraseña
                   </label>
                   <input
-                    type="confirmPassword"
+                    type="Password"
                     className="form-control"
+                    autoComplete="on"
                     name="confirmPassword"
                     placeholder="Indique su contraseña"
                     value={confirmPassword}

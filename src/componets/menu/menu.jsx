@@ -66,16 +66,16 @@ function Menu({ isVisible }) {
     {
       title: "Accesos",
       subItems: [
-        { title: "Cámbio de Clave", route: "/perfil" },
+        { title: "Cámbio de Clave", route: "/cambioClave" },
         { title: "Inicio de Sesión", route: "/login" },
-        { title: "Salír", route: "/exit" },
+        { title: "Salír", route: "/salir" },
       ],
     },
   ];
 
   return (
     <>
-      <div>
+      <div className="menu">
         {menuItems.map((item) => (
           <MenuItem key={item.title} item={item} isVisible={isVisible} />
         ))}

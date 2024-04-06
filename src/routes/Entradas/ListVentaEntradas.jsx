@@ -5,19 +5,20 @@ import AccessProfil from "../../componets/services/AccessProfil";
 import Buscador from "../../componets/Buscador";
 import { useFetch } from "../../hooks/useFetch";
 import VentaEntrada from "./GestionVentaEntrada";
-
+import { useUsersContext } from "../../hooks/UsersContext";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { TbEdit } from "react-icons/tb";
+
 export default function ListEntrada({ title }) {
-  AccessProfil();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const url = `${hostServer}/api/v2/ticketVentas`;
   const ref = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
+  AccessProfil();
   let { data, isLoading, getData, deleteData } = useFetch(`${url}`);
   const filters = [
     { id: 1, nombre: "entrada", descrip: "Entrada" },

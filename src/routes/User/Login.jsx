@@ -74,7 +74,8 @@ const Login = () => {
     <div className="container my-5">
       <div className="row justify-content-center">
         <div className="col-lg-6">
-          <h2 className="text-center mb-4">Iniciar sesión</h2>
+          <h2 className="text-center mb-4">
+            Iniciar sesión</h2>
           <div className="p-5 card shadow w-100">
             <div className="card-body">
               <form onSubmit={handleSubmit}>

@@ -10,7 +10,7 @@ const Home = () => {
       <div className="conteiner p-3 w-10">
         {/* <MainSection />
         <CardCourse /> */}
-        <h2 className="">Sistema de Venta de Entrrada </h2>
+        <h1 className="">Sistema de Venta de Entrrada </h1>
         <hr />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet vero

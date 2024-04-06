@@ -4,7 +4,7 @@ import validationSchema from "../../componets/services/validationSchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
- 
+import AccessProfil from "../../componets/services/AccessProfil";
 import Swal from "sweetalert2";
 
 export default function GeneraEntrada({ entrada, edit, riviewList }) {
@@ -83,7 +83,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     if (result) {
       setAcademys(result.data.data);
     }
-     url = `${hostServer}/api/v2/events`;
+    url = `${hostServer}/api/v2/events`;
     result = await getData(url);
     if (result) {
       setEventos(result.data.data);

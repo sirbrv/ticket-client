@@ -12,14 +12,14 @@ import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 import { FaRegEye } from "react-icons/fa";
 import AccessProfil from "../../componets/services/AccessProfil";
-
+import { useUsersContext } from "../../hooks/UsersContext";
 export default function ListContacts({ title, accion }) {
-  AccessProfil();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const url = `${hostServer}/api/v2/contacts`;
   const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
+  AccessProfil();
   let { data, isLoading, getData, deleteData } = useFetch(`${url}`);
   const bgChange = true;
   const modalNivel = 2;

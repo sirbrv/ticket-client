@@ -5,6 +5,7 @@ import Pagination from "../../componets/services/Pagination";
 import AccessProfil from "../../componets/services/AccessProfil";
 import { useFetch } from "../../hooks/useFetch";
 import User from "./User";
+import { useUsersContext } from "../../hooks/UsersContext";
 
 import Swal from "sweetalert2";
 import { FaTrashAlt } from "react-icons/fa";
@@ -12,6 +13,7 @@ import { TbEdit } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 
 export default function ListUser() {
+  const { setUsersContext } = useUsersContext();
   AccessProfil();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/v2/users`;

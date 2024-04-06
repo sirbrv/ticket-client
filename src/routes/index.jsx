@@ -1,5 +1,5 @@
 import Home from "../routes/Hone/home";
-import ReadScanner from "./../componets/QR/ReadScanner";
+import ReadScanner from "../componets/QR/ReadScanner";
 import Contact from "./Contacts/ListContacts";
 import Students from "./Estudiantes/ListStudents";
 import Academys from "./Academy/ListAcademys";
@@ -8,9 +8,11 @@ import Events from "./Eventos/ListEventos";
 import Users from "./User/ListUser";
 import VentaEntrada from "./Entradas/VentaEntrada";
 import TicketsVendido from "./Entradas/ListVentaEntradas";
-import GetionAdmin from './Administrativo/ListGestionAdmin'
+import GetionAdmin from "./Administrativo/ListGestionAdmin";
 import Login from "./User/Login";
 import Exit from "../componets/exit/Exit";
+import Logout from "./User/Logout";
+import Cambio from "../routes/User/CambioClave";
 
 // import Exit from "./components/Exit";
 
@@ -61,7 +63,8 @@ const routes = [
     path: "/login",
     element: <Login title={"Loogín"} />,
   },
-  { path: "/exit", element: <Exit /> },
+  { path: "/salir", element: <Logout /> },
+  { path: "/cambioClave", element: <Cambio /> },
 ];
 
 export default routes;

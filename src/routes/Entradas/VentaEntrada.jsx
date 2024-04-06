@@ -4,6 +4,7 @@ import validationSchema from "../../componets/services/validationVentaSchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import Swal from "sweetalert2";
+import AccessProfil from "../../componets/services/AccessProfil";
 
 export default function VentaEntrada({ entrada, edit, riviewList }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
@@ -12,6 +13,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
   const [eventos, setEventos] = useState([]);
   const inputRef = useRef(null);
 
+  AccessProfil("isSaler");
   const formaPagos = [
     { id: 1, descrip: "Total" },
     { id: 2, descrip: "Parcial" },
@@ -108,7 +110,6 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     let url = `${api}/${codigoEntrada}`;
     let result = await getData(url);
     if (result?.status === 200) {
-      console.log("Resultado.....:", result);
       const { evento, costo, responsable, estatus, urlAcademia } =
         result.data.data;
       let simulatedEvent = {};
@@ -126,7 +127,6 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
         clearForm();
         inputRef.current.focus();
       } else {
-        // Actualizar el estado del formulario con los datos obtenidos del servidor
         formData.evento = evento;
         formData.costo = costo;
         formData.responsable = responsable;
@@ -134,7 +134,6 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
         simulatedEvent = {
           target: { name: "evento", value: evento },
         };
-        /* se simúla en input por panntala para llamar hook */
         onInputChange(simulatedEvent);
       }
     } else {
@@ -180,9 +179,6 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
           });
       }
       if (data?.status === 200) {
-        HandleNivelClose();
-      }
-      if (data?.status === 201) {
         clearForm();
       }
     }

@@ -4,7 +4,7 @@ import validationSchema from "../../componets/services/validationSchema";
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 import { useAppContext } from "../../hooks/appContext";
-
+import AccessProfil from "../../componets/services/AccessProfil";
 import Swal from "sweetalert2";
 
 const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
@@ -14,7 +14,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
   const [academys, setAcademys] = useState([]);
   const [eventos, setEventos] = useState([]);
   const [error, setError] = useState(false);
-
+  
   const tipoEntradas = [
     { id: 1, descrip: "General" },
     { id: 2, descrip: "1era. Clase" },
