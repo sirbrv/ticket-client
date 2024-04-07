@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
-import AccessProfil from "../services/AccessProfil";
+import AccessProfil from "../../componets/services/AccessProfil";
 function ScannerQr() {
   AccessProfil("isVerify");
   const [scanResult, setScanResult] = useState(null);

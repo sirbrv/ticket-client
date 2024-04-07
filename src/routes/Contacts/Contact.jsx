@@ -87,7 +87,7 @@ export default function Contact({ contact, edit, riviewList }) {
         errorMessage()
       ) : (
         <>
-          <div className=" py-5 px-2">
+          <div className=" py-2 px-2">
             <form className="">
               <div className="row  mt-4">
                 <div className="col-md-6 col-12">

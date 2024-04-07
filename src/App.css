@@ -275,9 +275,6 @@ label {
   border: 0.4px solid cornsilk;
 }
 .btnShow {
-  /* background-color: transparent;
-  color: black;
-  border: 0.4px  solid cornsilk; */
   width: 30px;
   cursor: pointer;
 }
@@ -316,7 +313,20 @@ label {
   max-width: 100px;
 }
 
+.home p {
+  font-size: 1.2rem;
+}
+.event-paraaf {
+  padding-left: 30px;
+}
+.event-img {
+  height: 300px;
+  background-color: black;
+}
 @media (max-width: 950px) {
+  .home {
+    font-size: 12px;
+  }
   .marco {
     font-size: 0.9em;
     padding: 13px;
@@ -329,20 +339,79 @@ label {
   .courseSection > aside {
     width: 100%;
   }
+  .event-paraaf {
+    padding-left: 10px;
+    margin-top: 30px;
+  }
 }
 
 @media (max-width: 600px) {
   h1 {
     font-size: 1.5rem;
   }
-  h4{
+  h4 {
     font-size: 1rem;
   }
+
   body {
     font-size: 12px;
   }
+
+  .event-img {
+    height: 210px;
+    background-color: black;
+  }
+  .event-paraaf > p {
+    font-size: 0.9rem;
+  }
+  .home > p {
+    font-size: 0.9rem;
+  }
+  .home > h2 {
+    font-size: 1.2rem;
+    margin-left: 10px;
+  }
+
   .marco {
     font-size: 0.6em;
     padding: 5px;
+  }
+  .contenido-derecho > p {
+    font-size: 0.9rem;
+  }
+  .footer-footer {
+    font-size: .6rem;
+  }
+}
+
+.contenedor-padre {
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+.contenido-izquierdo,
+.contenido-derecho {
+  width: 50%; 
+  box-sizing: border-box; 
+  padding: 10px; 
+}
+
+.imagen {
+  width: 100%;
+  height: auto; 
+}
+
+.parrafo {
+  width: 100%;
+}
+
+
+@media screen and (max-width: 950px) {
+  .contenido-izquierdo,
+  .contenido-derecho {
+    width: 100%;
+  }
+  .parrafo {
+    width: 100%; 
   }
 }

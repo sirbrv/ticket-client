@@ -1,5 +1,5 @@
 import Home from "../routes/Hone/home";
-import ReadScanner from "../componets/QR/ReadScanner";
+import ReadScanner from "./QR/ReadScanner";
 import Contact from "./Contacts/ListContacts";
 import Students from "./Estudiantes/ListStudents";
 import Academys from "./Academy/ListAcademys";
