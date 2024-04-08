@@ -107,7 +107,7 @@ export default function ListStudent({ title }) {
   return (
     <div className="list-student-container">
       {isLoading ? (
-        <h3 className="mt-5">Cargando...</h3>
+        <h3 className="mt-5 text-center">Cargando...</h3>
       ) : (
         selectedItems && (
           <>

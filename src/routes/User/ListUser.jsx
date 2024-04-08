@@ -112,7 +112,7 @@ export default function ListUser() {
   return (
     <>
       {isLoading ? (
-        <h3 className="mt-5">Cargando...</h3>
+        <h3 className="mt-5 text-center">Cargando...</h3>
       ) : (
         // ) : error ? (
         //   <h3>Error de comunicación con el Servidor...</h3>

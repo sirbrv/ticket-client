@@ -46,7 +46,7 @@ const Home = () => {
             </p>
             <p className="parrafo">
               Para obtener un recurso completo sobre planificación de eventos,
-              recomendamos consultar nuestra paso a paso que incorpora valiosos
+              recomendamos consultar nuestro paso a paso que incorpora valiosos
               conocimientos y recomendaciones.
             </p>
           </div>

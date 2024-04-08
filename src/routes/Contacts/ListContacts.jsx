@@ -122,7 +122,7 @@ export default function ListContacts({ title, accion }) {
   return (
     <>
       {isLoading ? (
-        <h3 className="mt-5">Cargando...</h3>
+        <h3 className="mt-5 text-center">Cargando...</h3>
       ) : (
         selectedItems && (
           <>
