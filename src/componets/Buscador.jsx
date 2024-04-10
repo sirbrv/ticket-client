@@ -24,6 +24,9 @@ const Buscador = ({ filters, registros, onPageChange }) => {
   };
 
   const ejecFiltro = () => {
+    if (!registros) {
+      return;
+    }
     const resultadosFiltrados = registros.filter((registro) => {
       if (registro[campo]) {
         const turnoBuscadoLower = filtro.toLowerCase();

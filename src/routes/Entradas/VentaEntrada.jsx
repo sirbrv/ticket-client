@@ -79,9 +79,21 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     } else {
       clearForm();
     }
-    const numError = validateForm();
+    let numError = validateForm();
     if (errorBlur) {
-      // console.log("aqui.....:", errorBlur, numError);
+      if (montoPago > costo || numError > 0) {
+        {
+          Swal.fire({
+            position: "top",
+            icon: "error",
+            title: "El pago no puede ser masyor que el costo de la entrada.",
+            showConfirmButton: false,
+            timer: 4000,
+          });
+        }
+        numError = 1;
+      }
+
       if (!numError) {
         // if (!edit) {
         /*  se crea el registro */
@@ -149,7 +161,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
           }
           clearForm();
           inputRef.current.focus();
-          return 0
+          return 0;
         } else {
           formData.evento = evento;
           formData.costo = costo;

@@ -143,7 +143,7 @@ export default function ListStudent({ title }) {
                     </thead>
                     <tbody>
                       {data?.status === 500 ? (
-                        <tbody>
+                        // <tbody>
                           <tr>
                             <td scope="col" colSpan={12}>
                               <h3 className="textCenter">
@@ -151,7 +151,7 @@ export default function ListStudent({ title }) {
                               </h3>
                             </td>
                           </tr>
-                        </tbody>
+                        // </tbody>
                       ) : (
                         selectedItems.map((student) => (
                           <tr key={student.id}>

@@ -59,7 +59,21 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const numError = validateForm();
+    let numError = validateForm();
+
+    if (inicial > final || numError > 0) {
+      {
+        Swal.fire({
+          position: "top",
+          icon: "error",
+          title: "El número inicial no debe ser mayor.",
+          showConfirmButton: false,
+          timer: 4000,
+        });
+      }
+      numError = 1;
+    }
+
     if (!numError) {
       if (!edit) {
         await createData(api, formData);
