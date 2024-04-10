@@ -81,6 +81,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     }
     const numError = validateForm();
     if (errorBlur) {
+      // console.log("aqui.....:", errorBlur, numError);
       if (!numError) {
         // if (!edit) {
         /*  se crea el registro */
@@ -98,7 +99,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
           position: "top",
           icon: "info",
           title:
-            "Debes ingresar los campos requeridos para realizar la venta.. ",
+            "Debes ingresar los campos requerídos para realizar la venta.. ",
           showConfirmButton: false,
           timer: 5000,
         });
@@ -148,6 +149,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
           }
           clearForm();
           inputRef.current.focus();
+          return 0
         } else {
           formData.evento = evento;
           formData.costo = costo;
