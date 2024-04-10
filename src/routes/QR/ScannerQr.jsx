@@ -31,7 +31,7 @@ function ScannerQr() {
       // luberdino1.0@gmail.com
       const handleSuccess = async (result) => {
         scanner.clear();
-        await getData(`http://${result}`);
+        await getData(`${result}`);
         setScanResult(result);
         setIsScanning(false); // Detener el escaneo después de un resultado exitoso
       };
@@ -45,7 +45,6 @@ function ScannerQr() {
 
   useEffect(() => {
     if (data) {
-
       if (data.status == 200) {
         if (data.data) {
           setItem(data?.data.data);
