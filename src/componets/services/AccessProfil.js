@@ -8,17 +8,17 @@ function AccessProfil(profile = "isAdmin") {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (usersContext.role == "isAdmin" || usersContext.role == profile) {
-    } else {
-      Swal.fire({
-        position: "top",
-        icon: "info",
-        title: "No está autorizado para trabajar en la sección administratíva",
-        showConfirmButton: false,
-        timer: 3500,
-      });
-      navigate(`/`);
-    }
+    // if (usersContext.role == "isAdmin" || usersContext.role == profile) {
+    // } else {
+    //   Swal.fire({
+    //     position: "top",
+    //     icon: "info",
+    //     title: "No está autorizado para trabajar en la sección administratíva",
+    //     showConfirmButton: false,
+    //     timer: 3500,
+    //   });
+    //   navigate(`/`);
+    // }
   }, []);
 }
 

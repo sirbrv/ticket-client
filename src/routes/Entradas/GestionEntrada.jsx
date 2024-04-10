@@ -26,7 +26,8 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     { id: 2, descrip: "Asignada" },
     { id: 3, descrip: "Pendiente de Pago" },
     { id: 4, descrip: "Tickets Pagado" },
-  ];
+      { id: 5, descrip: "Vendida" },
+];
 
   const initialForm = {
     id: entrada ? entrada.id : "",

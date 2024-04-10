@@ -19,7 +19,7 @@ export default function ListGestionAdmin({ title }) {
   const [itemsPage, setItemsPage] = useState(8);
   AccessProfil();
   let { data, isLoading, getData, deleteData } = useFetch(`${url}`);
-  const filters = [{ id: 1, nombre: "nombre", descrip: "Nombre del Alumno" }];
+  const filters = [{ id: 1, nombre: "nombre", descrip: "Alumno" }];
 
   function handleAddEntradas() {
     const modalNivel = 2;
@@ -132,7 +132,7 @@ export default function ListGestionAdmin({ title }) {
                       <th scope="col">Monto Pagado</th>
                       <th scope="col">Efectívo</th>
                       <th scope="col">Transferencia</th>
-                      <th scope="col">Crédito</th>
+                      {/* <th scope="col">Crédito</th> */}
                       {/* <th scope="col" colSpan={3}>
                         Acción
                       </th> */}
@@ -154,11 +154,11 @@ export default function ListGestionAdmin({ title }) {
                             <td>{entrada.nombre}</td>
                             <td>{entrada.ticketAsignado}</td>
                             <td>{entrada.ticketPagado}</td>
-                            <td>{entrada.montoTotalPagado}</td>
                             <td>{entrada.montoTotalTicket} </td>
-                            <td>{entrada.montoEfectivo} </td>
-                            <td>{entrada.montoTransf} </td>
-                            <td>{entrada.montoCredito} </td>
+                            <td>{entrada.montoTotalPagado}</td>
+                            <td>{entrada.montoEfectivo ? "si" : ""} </td>
+                            <td>{entrada.montoTransf ? "si" : ""} </td>
+                            {/* <td>{entrada.montoCredito} </td> */}
                             {/* <td>
                               <TbEdit
                                 className=".btnShow"

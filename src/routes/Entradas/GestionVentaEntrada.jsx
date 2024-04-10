@@ -15,7 +15,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
   const [eventos, setEventos] = useState([]);
   const [error, setError] = useState(false);
   const inputRef = useRef(null);
-  
+
   const tipoEntradas = [
     { id: 1, descrip: "General" },
     { id: 2, descrip: "1era. Clase" },
@@ -27,6 +27,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     { id: 2, descrip: "Asignada" },
     { id: 3, descrip: "Pendiente de Pago" },
     { id: 4, descrip: "Tickets Pagado" },
+    { id: 5, descrip: "Vendida" },
   ];
 
   const formaPagos = [
@@ -93,6 +94,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
     e.preventDefault();
     const numError = validateForm();
     if (!numError) {
+
       if (!edit) {
         const result = await createData(api, formData);
       } else {

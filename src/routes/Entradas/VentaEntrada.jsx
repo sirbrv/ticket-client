@@ -73,27 +73,36 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let errorBlur = null;
+    if (codigoEntrada) {
+      errorBlur = await handleBlur();
+    } else {
+      clearForm();
+    }
     const numError = validateForm();
-    if (!numError) {
-      if (!edit) {
+    if (errorBlur) {
+      if (!numError) {
+        // if (!edit) {
         /*  se crea el registro */
         const result = await createData(api, formData);
         /* Sección de evio de correo - se condiciona que la creación terminó bien antes de enviar */
-        if (result.status === 201) {
-          const api = `${hostServer}/api/v2/envioticket`;
-          envioCorreo(api, formData);
-        }
+        // if (result.status === 201) {
+        let url = `${hostServer}/api/v2/envioticket`;
+        envioCorreo(url, formData);
+        // }
+        // } else {
+        //   await updateData(api, entrada.id, formData);
+        // }
       } else {
-        await updateData(api, entrada.id, formData);
+        Swal.fire({
+          position: "top",
+          icon: "info",
+          title:
+            "Debes ingresar los campos requeridos para realizar la venta.. ",
+          showConfirmButton: false,
+          timer: 5000,
+        });
       }
-    } else {
-      Swal.fire({
-        position: "top",
-        icon: "info",
-        title: "Debes corregir la información para poder registrarla",
-        showConfirmButton: false,
-        timer: 5000,
-      });
     }
   };
 
@@ -114,12 +123,12 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
         result.data.data;
       let simulatedEvent = {};
 
-      if (estatus !== "Asignada") {
+      if (estatus == "Vendida") {
         {
           Swal.fire({
             position: "top",
             icon: "info",
-            title: "La Entrada no a sído asignada, venta no autoriáda.",
+            title: "La Entrada ya fué vendida, venta no autoriáda.",
             showConfirmButton: false,
             timer: 4000,
           });
@@ -127,14 +136,29 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
         clearForm();
         inputRef.current.focus();
       } else {
-        formData.evento = evento;
-        formData.costo = costo;
-        formData.responsable = responsable;
-        formData.urlAcademia = urlAcademia;
-        simulatedEvent = {
-          target: { name: "evento", value: evento },
-        };
-        onInputChange(simulatedEvent);
+        if (estatus !== "Asignada") {
+          {
+            Swal.fire({
+              position: "top",
+              icon: "info",
+              title: "La Entrada no a sído asignada, venta no autoriáda.",
+              showConfirmButton: false,
+              timer: 4000,
+            });
+          }
+          clearForm();
+          inputRef.current.focus();
+        } else {
+          formData.evento = evento;
+          formData.costo = costo;
+          formData.responsable = responsable;
+          formData.urlAcademia = urlAcademia;
+          simulatedEvent = {
+            target: { name: "evento", value: evento },
+          };
+          onInputChange(simulatedEvent);
+        }
+        return 1;
       }
     } else {
       result?.data.message &&
@@ -145,6 +169,8 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
           showConfirmButton: false,
           timer: 3500,
         });
+      clearForm();
+      inputRef.current.focus();
     }
   };
 
@@ -198,9 +224,9 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
           errorMessage()
         ) : (
           <>
-            <div className="container my-3 px-3">
+            <div className="container my-5 px-3">
               <h1 className="my-3">Venta de Entradas</h1>
-              <form onSubmit={handleSubmit}>
+              <form>
                 <div className="row mt-4">
                   <div className="form-group col-md-3">
                     <label htmlFor="text">Número de Entrada</label>
@@ -209,9 +235,11 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
                       ref={inputRef}
                       className="form-control"
                       name="codigoEntrada"
+                      placeholder="Ingrese númeero de emtrada."
                       value={codigoEntrada}
                       onChange={onInputChange}
-                      onBlur={handleBlur}
+                      // onKeyUp={handleBlur}
+                      // onBlur={handleBlur}
                       disabled={edit ? true : false}
                     />
                     {errorsInput.codigoEntrada && (
