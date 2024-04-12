@@ -135,7 +135,7 @@ const Login = () => {
                     Recordarme
                   </label>
                 </div> */}
-                <div className="mb-3">
+                <div className="mb-5">
                   <button type="submit" className="btn btn-primary w-100">
                     Enviar
                   </button>
