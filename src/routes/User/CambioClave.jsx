@@ -1,60 +1,94 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 function CambioClave() {
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  const url = `${hostServer}/api/v2/user/cambio`;
+  const [email, setEmail] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [visible, setVisible] = useState(false);
-  const [visible1, setVisible1] = useState(false);
 
   const passwordChangeHandler = async (e) => {
     e.preventDefault();
-    var headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    headers.append("Accept", "application/json");
-    await axios
-      .put(
-        `${server}/admin/user/cambio`,
-        { email: user[0].email, oldPassword, newPassword, confirmPassword },
-        {
-          headers: headers,
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        if (parseInt(res.data.status) === 200) {
-          toast.success(`${res.data.message}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-          setOldPassword("");
-          setNewPassword("");
-          setConfirmPassword("");
-        }
-        if (parseInt(res.data.status) !== 200) {
-          toast.warning(`${res.data.message}`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        }
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
+
+    try {
+      const options = {
+        method: "put",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          oldPassword,
+          newPassword,
+          confirmPassword,
+        }),
+      };
+      const response = await fetch(url, options);
+      const data = await response.json();
+      if (parseInt(data?.status) === 200) {
+       Swal.fire({
+          position: "top",
+          icon: "success",
+          title: data?.message,
+          showConfirmButton: false,
+          timer: 3500,
+        });
+        setEmail[""];
+        setOldPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      }
+      if (parseInt(data?.status) == 400) {
+        Swal.fire({
+          position: "top",
+          icon: "error",
+          title: data?.message,
+          showConfirmButton: false,
+          timer: 3500,
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        title: error.message,
+        showConfirmButton: false,
+        timer: 3500,
       });
+    }
   };
   return (
-    <div className="container mt-5 ">
+    <div className="container mt-4 ">
       <div className="row justify-content-center">
         <div className="col-lg-6">
           <h2 className="text-center mb-4">Cambio de Contraseña</h2>
-          <div className="p-5 card shadow w-100">
+          <div className="py-4 px-5 card shadow w-100">
             <div className="card-body">
               <form
                 aria-required
                 onSubmit={passwordChangeHandler}
                 className="flex flex-col items-center"
               >
-                <div className="mb-3">
+                <div className="mb-2">
+                  <label htmlFor="email" className="form-label">
+                    Dirección de correo electrónico
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="form-control"
+                  />
+
+                </div>
+
+                <div className="mb-2">
                   <label htmlFor="oldPassword" className="form-label">
                     Contraseña Actual
                   </label>
@@ -80,13 +114,13 @@ function CambioClave() {
                     </button>
                   </div>
                 </div>
-                <div className=" w-[100%] 800px:w-[70%] mt-2 relative">
+                <div className="mb-2">
                   <label htmlFor="newPassword" className="form-label">
                     Nueva Contraseña
                   </label>
                   <div className="input-group">
                     <input
-                      type={visible1 ? "text" : "password"}
+                      type={visible ? "text" : "password"}
                       className="form-control"
                       name="newPassword"
                       required
@@ -107,13 +141,13 @@ function CambioClave() {
                     </button>
                   </div>
                 </div>
-                <div className=" w-[100%] 800px:w-[70%] mt-2 relative">
+                <div className="mb-2">
                   <label htmlFor="confirmPassword" className="form-label">
                     Confirme la Nueva Contraseña
                   </label>
                   <div className="input-group">
                     <input
-                      type={"password"}
+                      type={visible ? "text" : "password"}
                       className="form-control"
                       required
                       autoComplete="on"
@@ -134,7 +168,7 @@ function CambioClave() {
                     </button>
                   </div>
                   <input
-                    className="btn btn-primary w-100 mt-5"
+                    className="btn btn-primary w-100 mt-4"
                     required
                     value="Guardar"
                     type="submit"

@@ -16,7 +16,7 @@ export default function ListUser() {
   const { setUsersContext } = useUsersContext();
   AccessProfil();
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/v2/users`;
+  const api = `${hostServer}/api/v2/users`; 
   const ref = useRef(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [error, setError] = useState(false);
@@ -76,7 +76,7 @@ export default function ListUser() {
           getUsers();
           await Swal.fire({
             title: "Eliminádo!",
-            text: "El Usuario fué eliminádo.",
+            text: "El Usuário fué eliminádo.",
             icon: "success",
           });
         };

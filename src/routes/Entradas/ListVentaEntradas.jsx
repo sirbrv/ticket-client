@@ -71,7 +71,7 @@ export default function ListEntrada({ title }) {
           getEntradas();
           await Swal.fire({
             title: "Eliminádo!",
-            text: "El Entradas fué eliminádo.",
+            text: "La venta fué elimináda.",
             icon: "success",
           });
         };

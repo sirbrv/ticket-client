@@ -9,7 +9,6 @@ import Swal from "sweetalert2";
 
 import { useFetch } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
-// import { addUser } from "../../redux/usersSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -74,8 +73,7 @@ const Login = () => {
     <div className="container my-5">
       <div className="row justify-content-center">
         <div className="col-lg-6">
-          <h2 className="text-center mb-4">
-            Iniciar sesión</h2>
+          <h2 className="text-center mb-4">Iniciar sesión</h2>
           <div className="p-5 card shadow w-100">
             <div className="card-body">
               <form onSubmit={handleSubmit}>
@@ -126,7 +124,7 @@ const Login = () => {
                     <ValidateErrors errors={errorsInput.password} />
                   )}
                 </div>
-                <div className="mb-3 form-check">
+                {/* <div className="mb-3 form-check">
                   <input
                     type="checkbox"
                     name="remember-me"
@@ -136,7 +134,7 @@ const Login = () => {
                   <label htmlFor="remember-me" className="form-check-label">
                     Recordarme
                   </label>
-                </div>
+                </div> */}
                 <div className="mb-3">
                   <button type="submit" className="btn btn-primary w-100">
                     Enviar

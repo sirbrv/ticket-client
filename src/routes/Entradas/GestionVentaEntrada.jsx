@@ -93,26 +93,37 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
-    if (!numError) {
-
-      if (!edit) {
-        const result = await createData(api, formData);
-      } else {
-        const result = await updateData(api, entrada.id, formData);
-        /* Sección de evio de correo - se condiciona que la creación terminó bien antes de enviar */
-        if (result.status === 200) {
-          const api = `${hostServer}/api/v2/envioticket`;
-          envioCorreo(api, formData);
-        }
+    if (montoPago > costo) {
+      {
+        Swal.fire({
+          position: "top",
+          icon: "error",
+          title: "El pago no puede ser mayor que el costo de la entrada.",
+          showConfirmButton: false,
+          timer: 4000,
+        });
       }
     } else {
-      Swal.fire({
-        position: "top",
-        icon: "info",
-        title: "Debes corregir la información para poder registrarla",
-        showConfirmButton: false,
-        timer: 5000,
-      });
+      if (!numError) {
+        if (!edit) {
+          const result = await createData(api, formData);
+        } else {
+          const result = await updateData(api, entrada.id, formData);
+          /* Sección de evio de correo - se condiciona que la creación terminó bien antes de enviar */
+          if (result.status === 200) {
+            const api = `${hostServer}/api/v2/envioticket`;
+            envioCorreo(api, formData);
+          }
+        }
+      } else {
+        Swal.fire({
+          position: "top",
+          icon: "info",
+          title: "Debes corregir la información para poder registrarla",
+          showConfirmButton: false,
+          timer: 5000,
+        });
+      }
     }
   };
 

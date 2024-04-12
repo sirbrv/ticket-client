@@ -63,7 +63,6 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
   let {
     data,
     isLoading = false,
-    // getData,
     createData,
     updateData,
     envioCorreo,
@@ -81,40 +80,34 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
     }
     let numError = validateForm();
     if (errorBlur) {
-      if (montoPago > costo || numError > 0) {
+      if (e.detail === 0) {
+        return;
+      }
+      if (montoPago > costo ) {
         {
           Swal.fire({
             position: "top",
             icon: "error",
-            title: "El pago no puede ser masyor que el costo de la entrada.",
+            title: "El pago no puede ser mayor que el costo de la entrada.",
             showConfirmButton: false,
             timer: 4000,
           });
         }
-        numError = 1;
-      }
-
-      if (!numError) {
-        // if (!edit) {
-        /*  se crea el registro */
-        const result = await createData(api, formData);
-        /* Sección de evio de correo - se condiciona que la creación terminó bien antes de enviar */
-        // if (result.status === 201) {
-        let url = `${hostServer}/api/v2/envioticket`;
-        envioCorreo(url, formData);
-        // }
-        // } else {
-        //   await updateData(api, entrada.id, formData);
-        // }
       } else {
-        Swal.fire({
-          position: "top",
-          icon: "info",
-          title:
-            "Debes ingresar los campos requerídos para realizar la venta.. ",
-          showConfirmButton: false,
-          timer: 5000,
-        });
+        if (!numError) {
+          const result = await createData(api, formData);
+          let url = `${hostServer}/api/v2/envioticket`;
+          envioCorreo(url, formData);
+        } else {
+          Swal.fire({
+            position: "top",
+            icon: "info",
+            title:
+              "Debes ingresar los campos requeridos para realizar la venta.. ",
+            showConfirmButton: false,
+            timer: 5000,
+          });
+        }
       }
     }
   };
@@ -135,13 +128,12 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
       const { evento, costo, responsable, estatus, urlAcademia } =
         result.data.data;
       let simulatedEvent = {};
-
       if (estatus == "Vendida") {
         {
           Swal.fire({
             position: "top",
             icon: "info",
-            title: "La Entrada ya fué vendida, venta no autoriáda.",
+            title: "La Entrada ya fué vendida, venta no autorizáda.",
             showConfirmButton: false,
             timer: 4000,
           });
@@ -154,7 +146,7 @@ export default function VentaEntrada({ entrada, edit, riviewList }) {
             Swal.fire({
               position: "top",
               icon: "info",
-              title: "La Entrada no a sído asignada, venta no autoriáda.",
+              title: "La Entrada no a sído asignada, venta no autorizáda.",
               showConfirmButton: false,
               timer: 4000,
             });

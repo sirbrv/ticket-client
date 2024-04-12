@@ -66,7 +66,7 @@ export default function GeneraEntrada({ entrada, edit, riviewList }) {
         Swal.fire({
           position: "top",
           icon: "error",
-          title: "El número inicial no debe ser mayor.",
+          title: "El número inicial no puede ser mayor al número final.",
           showConfirmButton: false,
           timer: 4000,
         });
