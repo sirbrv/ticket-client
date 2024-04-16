@@ -1,12 +1,8 @@
-import LipsTickets from "./LipsTickets";
-import "./App.css";
- 
+import LipsTickets from './LipsTickets';
+import './App.css';
+
 function App() {
-  return (
-    <>
-      <LipsTickets />
-    </>
-  );
+	return <LipsTickets />;
 }
 
 export default App;
