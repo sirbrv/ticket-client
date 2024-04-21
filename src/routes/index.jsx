@@ -9,6 +9,7 @@ import Users from "./User/ListUser";
 import VentaEntrada from "./Entradas/VentaEntrada";
 import TicketsVendido from "./Entradas/ListVentaEntradas";
 import GetionAdmin from "./Administrativo/ListGestionAdmin";
+import VerifyEvent from "./Administrativo/ListVerifyEvent";
 import Login from "./User/Login";
 import Exit from "../componets/exit/Exit";
 import Logout from "./User/Logout";
@@ -54,6 +55,10 @@ const routes = [
   {
     path: "/getionAdmin",
     element: <GetionAdmin title={"Escaneo de Entradas"} />,
+  },
+  {
+    path: "/verifyEvent",
+    element: <VerifyEvent title={"Escaneo de Entradas"} />,
   },
   {
     path: "/contact",

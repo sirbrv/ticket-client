@@ -33,6 +33,10 @@ label {
   font-weight: 700;
   font-style: italic;
 }
+tfoot {
+  background-color: #a1a0a0; 
+  color: black; 
+}
 /* 
 .main {
   display: flex;

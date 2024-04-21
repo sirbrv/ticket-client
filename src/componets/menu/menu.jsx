@@ -61,7 +61,10 @@ function Menu({ isVisible }) {
     },
     {
       title: "Listados",
-      subItems: [{ title: "Gestión Administratíva", route: "/getionAdmin" }],
+      subItems: [
+        { title: "Gestión Administratíva", route: "/getionAdmin" },
+        { title: "Verificación de Evento", route: "/verifyEvent" },
+      ],
     },
     {
       title: "Accesos",
